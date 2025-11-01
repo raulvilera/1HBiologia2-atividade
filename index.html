@@ -1,7 +1,4 @@
-
-
-
-          <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -35,36 +32,55 @@
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 5mm;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
         
         .school-name {
             font-weight: bold;
             font-size: 18px;
+            margin-bottom: 10px;
         }
         
         .student-info {
             display: flex;
-            gap: 15px;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
+            gap: 15px;
         }
         
         .info-field {
             display: flex;
             align-items: center;
             gap: 5px;
+            flex: 1;
+            min-width: 150px;
         }
         
         .info-field label {
             font-weight: bold;
+            white-space: nowrap;
         }
         
         .info-field input, .info-field select {
             padding: 5px;
             border: 1px solid #ccc;
             border-radius: 3px;
+            width: 100%;
+            max-width: 200px;
+        }
+        
+        #student-number {
+            max-width: 60px; /* Largura reduzida para o campo Nº */
+        }
+        
+        #student-grade {
+            max-width: 60px; /* Largura reduzida para o campo Série */
         }
         
         .activity-title {
@@ -184,25 +200,29 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="school-name">E.E. PROFª LYDIA KITZ MOREIRA</div><br>
+            <div class="school-name">E.E. PROFª LYDIA KITZ MOREIRA</div>
             <div class="student-info">
-                <div class="info-field">
-                    <label for="student-name">NOME:</label>
-                    <select id="student-name">
-                        <option value="">Selecione seu nome</option>
-                    </select>
+                <div class="info-row">
+                    <div class="info-field">
+                        <label for="student-name">NOME:</label>
+                        <select id="student-name">
+                            <option value="">Selecione seu nome</option>
+                        </select>
+                    </div>
+                    <div class="info-field">
+                        <label for="student-number">Nº:</label>
+                        <input type="text" id="student-number" readonly>
+                    </div>
                 </div>
-                <div class="info-field">
-                    <label for="student-number">Nº:</label>
-                    <input type="text" id="student-number" readonly>
-                </div>
-                <div class="info-field">
-                    <label for="student-grade">SÉRIE:</label>
-                    <input type="text" id="student-grade" value="1ºH" readonly>
-                </div>
-                <div class="info-field">
-                    <label for="activity-date">DATA:</label>
-                    <input type="date" id="activity-date">
+                <div class="info-row">
+                    <div class="info-field">
+                        <label for="student-grade">SÉRIE:</label>
+                        <input type="text" id="student-grade" value="1ºH" readonly>
+                    </div>
+                    <div class="info-field">
+                        <label for="activity-date">DATA:</label>
+                        <input type="date" id="activity-date">
+                    </div>
                 </div>
             </div>
         </div>
@@ -779,5 +799,4 @@
         }
     </script>
 </body>
-
 </html>
