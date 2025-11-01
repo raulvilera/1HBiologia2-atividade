@@ -1,0 +1,782 @@
+
+
+
+          <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade de Biologia - Bactérias</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #8A9A5B; /* Verde musgo */
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        .header {
+            background-color: #ADD8E6; /* Azul claro */
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 5mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .school-name {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .student-info {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .info-field {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .info-field label {
+            font-weight: bold;
+        }
+        
+        .info-field input, .info-field select {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        .activity-title {
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .theme {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .question {
+            background-color: #ADD8E6; /* Azul claro */
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 5mm;
+            border-bottom: 2px solid white;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .question-text {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .question-image {
+            max-width: 100%;
+            margin: 15px 0;
+            border-radius: 5px;
+            display: block;
+        }
+        
+        .options {
+            margin-top: 15px;
+        }
+        
+        .option {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .option input {
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        .option label {
+            line-height: 1.4;
+        }
+        
+        .option-image {
+            max-width: 200px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        #submit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        #clear-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .stripe-0 {
+            background-color: #f0f8ff;
+        }
+        
+        .stripe-1 {
+            background-color: #e6f7ff;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="school-name">E.E. PROFª LYDIA KITZ MOREIRA</div>
+            <div class="student-info">
+                <div class="info-field">
+                    <label for="student-name">NOME:</label>
+                    <select id="student-name">
+                        <option value="">Selecione seu nome</option>
+                    </select>
+                </div>
+                <div class="info-field">
+                    <label for="student-number">Nº:</label>
+                    <input type="text" id="student-number" readonly>
+                </div>
+                <div class="info-field">
+                    <label for="student-grade">SÉRIE:</label>
+                    <input type="text" id="student-grade" value="1ºH" readonly>
+                </div>
+                <div class="info-field">
+                    <label for="activity-date">DATA:</label>
+                    <input type="date" id="activity-date">
+                </div>
+            </div>
+        </div>
+        
+        <div class="activity-title">ATIVIDADE DE BIOLOGIA (4º BIMESTRE)</div>
+        <div class="theme">Tema: Bactérias</div>
+        
+        <form id="quiz-form">
+            <!-- Questão 1 -->
+            <div class="question">
+                <div class="question-number">Questão 1</div>
+                <div class="question-text">
+                    <p>As bactérias são organismos microscópicos que apresentam diversas características distintas. Com base nos conteúdos estudados sobre as principais características das bactérias, analise as seguintes afirmações:</p>
+                    <p>I. As bactérias são organismos procariontes, ou seja, não possuem um núcleo delimitado por membrana nuclear.</p>
+                    <p>II. Todas as bactérias são organismos multicelulares que formam colônias complexas.</p>
+                    <p>III. As bactérias possuem parede celular composta por proteínas e açúcares, localizada externamente à membrana plasmática.</p>
+                    <p>IV. A unidade de medida utilizada para bactérias é o micrômetro (µm), que corresponde à milésima parte do milímetro.</p>
+                    <p>Quais afirmações estão corretas?</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q1a" name="q1" value="a">
+                        <label for="q1a">A) I, II e III</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1b" name="q1" value="b">
+                        <label for="q1b">B) I, III e IV</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1c" name="q1" value="c">
+                        <label for="q1c">C) II, III e IV</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1d" name="q1" value="d">
+                        <label for="q1d">D) I, II e IV</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1e" name="q1" value="e">
+                        <label for="q1e">E) II e IV</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Questão 2 -->
+            <div class="question">
+                <div class="question-number">Questão 2</div>
+                <div class="question-text">
+                    <p>Observe atentamente a imagem abaixo que representa diferentes formas bacterianas:</p>
+                    <img src="https://via.placeholder.com/600x300/ADD8E6/000000?text=Imagem+de+Bactérias+em+Diferentes+Formas" alt="Formas bacterianas" class="question-image">
+                    <p>Com base na imagem e nos conhecimentos sobre classificação morfológica das bactérias, assinale a alternativa que relaciona corretamente as formas bacterianas com suas descrições:</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q2a" name="q2" value="a">
+                        <label for="q2a">A) Cocos - forma de bastão; Bacilos - forma arredondada; Espirilos - forma espiralada; Vibriões - forma de vírgula</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2b" name="q2" value="b">
+                        <label for="q2b">B) Cocos - forma arredondada; Bacilos - forma de bastão; Espirilos - forma espiralada; Vibriões - forma de vírgula</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2c" name="q2" value="c">
+                        <label for="q2c">C) Cocos - forma espiralada; Bacilos - forma arredondada; Espirilos - forma de bastão; Vibriões - forma de vírgula</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2d" name="q2" value="d">
+                        <label for="q2d">D) Cocos - forma de vírgula; Bacilos - forma de bastão; Espirilos - forma arredondada; Vibriões - forma espiralada</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2e" name="q2" value="e">
+                        <label for="q2e">E) Cocos - forma arredondada; Bacilos - forma espiralada; Espirilos - forma de bastão; Vibriões - forma de vírgula</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Questão 3 -->
+            <div class="question">
+                <div class="question-number">Questão 3</div>
+                <div class="question-text">
+                    <p>Analise a imagem que representa diferentes classificações metabólicas das bactérias em relação ao oxigênio:</p>
+                    <img src="https://via.placeholder.com/600x300/ADD8E6/000000?text=Classificação+Metabólica+das+Bactérias" alt="Classificação metabólica" class="question-image">
+                    <p>Com base na imagem e nos conhecimentos sobre classificação metabólica das bactérias, relacione as colunas abaixo:</p>
+                    <p>1. Aeróbias</p>
+                    <p>2. Anaeróbias obrigatórias</p>
+                    <p>3. Anaeróbias facultativas</p>
+                    <p>4. Microaerófilas</p>
+                    <p>( ) Bactérias que necessitam de gás oxigênio para sobreviver</p>
+                    <p>( ) Bactérias que não necessitam de gás oxigênio para viver</p>
+                    <p>( ) Bactérias que sobrevivem com ou sem gás oxigênio</p>
+                    <p>( ) Bactérias que necessitam de baixas concentrações de gás oxigênio para sobreviver</p>
+                    <p>A sequência correta é:</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q3a" name="q3" value="a">
+                        <label for="q3a">A) 1, 2, 3, 4</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3b" name="q3" value="b">
+                        <label for="q3b">B) 1, 3, 2, 4</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3c" name="q3" value="c">
+                        <label for="q3c">C) 2, 1, 4, 3</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3d" name="q3" value="d">
+                        <label for="q3d">D) 3, 2, 1, 4</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3e" name="q3" value="e">
+                        <label for="q3e">E) 4, 3, 2, 1</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Questão 4 -->
+            <div class="question">
+                <div class="question-number">Questão 4</div>
+                <div class="question-text">
+                    <p>Observe a imagem que representa bactérias em diferentes habitats:</p>
+                    <img src="https://via.placeholder.com/600x300/ADD8E6/000000?text=Bactérias+em+Diferentes+Habitats" alt="Bactérias em habitats" class="question-image">
+                    <p>Com base na imagem e nos conhecimentos sobre classificação das bactérias por habitat, assinale a alternativa que apresenta a classificação INCORRETA:</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q4a" name="q4" value="a">
+                        <label for="q4a">A) Bactérias aéreas - habitam o ar</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4b" name="q4" value="b">
+                        <label for="q4b">B) Bactérias terrestres - habitam o solo</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4c" name="q4" value="c">
+                        <label for="q4c">C) Bactérias dulcícolas - habitam a água salgada</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4d" name="q4" value="d">
+                        <label for="q4d">D) Bactérias marinhas - habitam a água salgada</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4e" name="q4" value="e">
+                        <label for="q4e">E) Bactérias extremófilas - habitam ambientes extremos</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Questão 5 -->
+            <div class="question">
+                <div class="question-number">Questão 5</div>
+                <div class="question-text">
+                    <p>Analise a imagem que representa a classificação das bactérias pela forma de nutrição:</p>
+                    <img src="https://via.placeholder.com/600x300/ADD8E6/000000?text=Classificação+por+Nutrição" alt="Classificação por nutrição" class="question-image">
+                    <p>Com base na imagem e nos conhecimentos sobre classificação nutricional das bactérias, assinale a alternativa CORRETA:</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q5a" name="q5" value="a">
+                        <label for="q5a">A) Bactérias autotróficas produzem seu próprio alimento por meio de fotossíntese ou quimiossíntese</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5b" name="q5" value="b">
+                        <label for="q5b">B) Bactérias heterotróficas produzem seu próprio alimento por meio de fotossíntese</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5c" name="q5" value="c">
+                        <label for="q5c">C) Bactérias autotróficas dependem do meio e/ou de outros organismos para obter alimento</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5d" name="q5" value="d">
+                        <label for="q5d">D) Bactérias heterotróficas realizam apenas quimiossíntese para obter alimento</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5e" name="q5" value="e">
+                        <label for="q5e">E) Todas as bactérias são autotróficas</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Questão 6 -->
+            <div class="question">
+                <div class="question-number">Questão 6</div>
+                <div class="question-text">
+                    <p>As bactérias desempenham diferentes papéis na natureza, conforme sua classificação ecológica. Com base nos conteúdos estudados, analise as seguintes afirmações sobre o papel das bactérias na natureza:</p>
+                    <p>I. Bactérias produtoras realizam fotossíntese e estão na base da cadeia alimentar.</p>
+                    <p>II. Bactérias fixadoras transformam nitrogênio gasoso e inorgânico em nitrogênio orgânico.</p>
+                    <p>III. Bactérias decompositoras auxiliam no retorno da matéria orgânica ao ambiente.</p>
+                    <p>IV. Bactérias parasitas utilizam recursos de outros seres vivos para sobreviver, causando doenças.</p>
+                    <p>Quais afirmações estão corretas?</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q6a" name="q6" value="a">
+                        <label for="q6a">A) I e II</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6b" name="q6" value="b">
+                        <label for="q6b">B) I, II e III</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6c" name="q6" value="c">
+                        <label for="q6c">C) II, III e IV</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6d" name="q6" value="d">
+                        <label for="q6d">D) I, II, III e IV</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6e" name="q6" value="e">
+                        <label for="q6e">E) III e IV</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Questão 7 -->
+            <div class="question">
+                <div class="question-number">Questão 7</div>
+                <div class="question-text">
+                    <p>Observe a imagem que representa o processo de reprodução bacteriana por bipartição:</p>
+                    <img src="https://via.placeholder.com/600x300/ADD8E6/000000?text=Reprodução+por+Bipartição" alt="Reprodução por bipartição" class="question-image">
+                    <p>Com base na imagem e nos conhecimentos sobre reprodução bacteriana, assinale a alternativa CORRETA:</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q7a" name="q7" value="a">
+                        <label for="q7a">A) A reprodução por bipartição é um processo sexuado que envolve troca de material genético</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7b" name="q7" value="b">
+                        <label for="q7b">B) Na bipartição, a célula bacteriana triplica seu cromossomo antes de se dividir</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7c" name="q7" value="c">
+                        <label for="q7c">C) A reprodução por bipartição gera duas novas bactérias geneticamente idênticas à original</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7d" name="q7" value="d">
+                        <label for="q7d">D) A variabilidade genética nas bactérias ocorre apenas por meio de mutações durante a bipartição</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7e" name="q7" value="e">
+                        <label for="q7e">E) A bipartição é um processo de reprodução que envolve a formação de esporos</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Questão 8 -->
+            <div class="question">
+                <div class="question-number">Questão 8</div>
+                <div class="question-text">
+                    <p>Analise a imagem que representa métodos de eliminação de bactérias:</p>
+                    <img src="https://via.placeholder.com/600x300/ADD8E6/000000?text=Métodos+de+Eliminação+de+Bactérias" alt="Métodos de eliminação" class="question-image">
+                    <p>Com base na imagem e nos conhecimentos sobre métodos de eliminação de bactérias, assinale a alternativa que apresenta a relação CORRETA entre o método e sua descrição:</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q8a" name="q8" value="a">
+                        <label for="q8a">A) Esterilização - uso de álcool 70% para eliminar a maior parte das bactérias</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8b" name="q8" value="b">
+                        <label for="q8b">B) Desinfecção - uso do calor ou radiação ionizante para destruir todas as bactérias</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8c" name="q8" value="c">
+                        <label for="q8c">C) Esterilização - uso do calor ou radiação ionizante para destruir todas as bactérias</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8d" name="q8" value="d">
+                        <label for="q8d">D) Desinfecção - uso de antibióticos para eliminar bactérias patogênicas</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8e" name="q8" value="e">
+                        <label for="q8e">E) Esterilização - uso de água sanitária para eliminar bactérias patogênicas</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Questão 9 -->
+            <div class="question">
+                <div class="question-number">Questão 9</div>
+                <div class="question-text">
+                    <p>Com base no experimento sobre crescimento bacteriano apresentado no material de estudo, analise as seguintes situações:</p>
+                    <p>Em um experimento com três tubos de ensaio contendo meio de cultura, foram observados os seguintes resultados após alguns dias:</p>
+                    <p>- Tubo 1: crescimento bacteriano apenas na porção superior do meio de cultura</p>
+                    <p>- Tubo 2: crescimento bacteriano apenas na parte inferior do meio de cultura</p>
+                    <p>- Tubo 3: crescimento bacteriano em todo o meio de cultura</p>
+                    <p>Com base nesses resultados e nos conhecimentos sobre classificação metabólica das bactérias, é CORRETO afirmar que:</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q9a" name="q9" value="a">
+                        <label for="q9a">A) As bactérias do tubo 1 são anaeróbias obrigatórias</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9b" name="q9" value="b">
+                        <label for="q9b">B) As bactérias do tubo 2 são aeróbias</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9c" name="q9" value="c">
+                        <label for="q9c">C) As bactérias do tubo 3 são anaeróbias facultativas</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9d" name="q9" value="d">
+                        <label for="q9d">D) As bactérias do tubo 1 são microaerófilas</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9e" name="q9" value="e">
+                        <label for="q9e">E) As bactérias do tubo 2 são anaeróbias facultativas</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Questão 10 -->
+            <div class="question">
+                <div class="question-number">Questão 10</div>
+                <div class="question-text">
+                    <p>Observe a imagem que representa a ação de antibióticos sobre bactérias:</p>
+                    <img src="https://via.placeholder.com/600x300/ADD8E6/000000?text=Ação+de+Antibióticos" alt="Ação de antibióticos" class="question-image">
+                    <p>Com base na imagem e nos conhecimentos sobre o uso de antibióticos, analise as seguintes afirmações:</p>
+                    <p>I. Os antibióticos atuam especificamente sobre o metabolismo das bactérias.</p>
+                    <p>II. Antibióticos podem ser utilizados para tratar infecções causadas por vírus.</p>
+                    <p>III. O uso inadequado de antibióticos pode levar ao desenvolvimento de bactérias resistentes.</p>
+                    <p>IV. Antibióticos só devem ser utilizados mediante prescrição médica.</p>
+                    <p>Quais afirmações estão corretas?</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q10a" name="q10" value="a">
+                        <label for="q10a">A) I, II e III</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10b" name="q10" value="b">
+                        <label for="q10b">B) I, III e IV</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10c" name="q10" value="c">
+                        <label for="q10c">C) II, III e IV</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10d" name="q10" value="d">
+                        <label for="q10d">D) I, II e IV</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10e" name="q10" value="e">
+                        <label for="q10e">E) II e IV</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button type="button" id="submit-btn">Enviar Respostas</button>
+                <button type="button" id="clear-btn">Limpar Respostas</button>
+            </div>
+            
+            <div id="result-message" class="result"></div>
+        </form>
+    </div>
+
+    <script>
+        // Dados dos alunos
+        const students = [
+            { number: "1", name: "ALEXANDRE BATISTA DOS SANTOS" },
+            { number: "5", name: "ANA LÍVIA BRAGA DOS SANTOS" },
+            { number: "11", name: "DANIELLE OLIVEIRA DA SILVA NUNES" },
+            { number: "14", name: "ELOYSA ANDRADE OLIVEIRA SILVA" },
+            { number: "18", name: "FELIPE MARCONDES SILVA" },
+            { number: "19", name: "GEOVANA FERREIRA DA SILVA SOUZA" },
+            { number: "20", name: "GEOVANNA GABRIELA PIERRE SILVA" },
+            { number: "24", name: "ISAAK ALVAREZ MARQUEZ CAETANO" },
+            { number: "33", name: "KEMILLY VITORIA RODRIGUES MARIANO" },
+            { number: "34", name: "LAURA LUIZA DOS SANTOS ALMEIDA" },
+            { number: "37", name: "MARIA EDUARDA VENCESLAU DE SOUZA" },
+            { number: "38", name: "MATHEUS CAVALCANTE LISBOA" },
+            { number: "40", name: "MURILLO SOUZA RODRIGUES DOS SANTOS" },
+            { number: "45", name: "PEDRO HENRIQUE MAURICIO DA SILVA CHAGAS" },
+            { number: "48", name: "RHUAN LIMA OLIVEIRA" },
+            { number: "49", name: "THAINA FIDELIS XAVIER DA SILVA" },
+            { number: "54", name: "DENIS CASTRO DURVALDO" },
+            { number: "56", name: "ISAAC LEMOS SANTOS" },
+            { number: "57", name: "EMILLY EDUARDA BONIFACIO DE AMORIM CORREA" },
+            { number: "59", name: "LEONARDO ABADE DA SILVA DANTAS" },
+            { number: "62", name: "PYETRA GOMES MARTINS" },
+            { number: "64", name: "CARLOS EDUARDO MARTINS DA SILVA" },
+            { number: "66", name: "STELLA MARTINS DA SILVA" },
+            { number: "67", name: "DYESSICA MAYARA DOS SANTOS GOMES" },
+            { number: "68", name: "LARISSA DE LOURDES DOS SANTOS" },
+            { number: "70", name: "GUSTAVO RODRIGUES DE SOUZA" },
+            { number: "72", name: "NAYARA BARROS DE MORAIS" },
+            { number: "73", name: "VITÓRIA SANTOS TEIXEIRA" },
+            { number: "75", name: "JOÃO PAULO RODRIGUES DE SOUZA FILHO" },
+            { number: "76", name: "MARIA EDUARDA DE OLIVEIRA RODRIGUES" },
+            { number: "77", name: "LUIZ HENRIQUE JESUS DOS SANTOS FABRICIO" },
+            { number: "78", name: "EDUARDO CARRASCOSA PINTOR" },
+            { number: "79", name: "GUILHERME DANIEL VELOSO DOS SANTOS" },
+            { number: "80", name: "JOAO GABRIEL AMORIM TOBIAS" },
+            { number: "81", name: "RIAN SANTOS MACHADO" },
+            { number: "82", name: "JULIA ARAUJO DE LIMA" },
+            { number: "83", name: "BRENDA ROSA DA SILVA" },
+            { number: "84", name: "CAMILA APPOLINÁRIO" },
+            { number: "85", name: "ARTHUR CASTRO SILVA" },
+            { number: "86", name: "KAMILA NEVES BRITO" }
+        ];
+
+        // Gabarito (oculto)
+        const correctAnswers = {
+            q1: "b",
+            q2: "b",
+            q3: "a",
+            q4: "c",
+            q5: "a",
+            q6: "d",
+            q7: "c",
+            q8: "c",
+            q9: "c",
+            q10: "b"
+        };
+
+        // Variável para controlar se o formulário já foi enviado
+        let submitted = false;
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            // Preencher dropdown de alunos
+            const studentSelect = document.getElementById('student-name');
+            students.forEach((student, index) => {
+                const option = document.createElement('option');
+                option.value = student.number;
+                option.textContent = student.name;
+                option.className = `stripe-${index % 2}`;
+                studentSelect.appendChild(option);
+            });
+
+            // Configurar data atual
+            const today = new Date();
+            document.getElementById('activity-date').value = today.toISOString().split('T')[0];
+
+            // Event listener para seleção de aluno
+            studentSelect.addEventListener('change', function() {
+                const selectedNumber = this.value;
+                const selectedStudent = students.find(student => student.number === selectedNumber);
+                if (selectedStudent) {
+                    document.getElementById('student-number').value = selectedStudent.number;
+                }
+            });
+
+            // Event listener para botão de limpar
+            document.getElementById('clear-btn').addEventListener('click', function() {
+                if (!submitted) {
+                    clearForm();
+                } else {
+                    alert('Não é possível limpar as respostas após o envio.');
+                }
+            });
+
+            // Event listener para botão de enviar
+            document.getElementById('submit-btn').addEventListener('click', function() {
+                if (submitted) {
+                    alert('Você já enviou suas respostas. Apenas um envio é permitido.');
+                    return;
+                }
+
+                if (!validateForm()) {
+                    return;
+                }
+
+                const score = calculateScore();
+                showResult(score);
+                submitted = true;
+                
+                // Enviar para o Google Sheets (simulação)
+                sendToGoogleSheets(score);
+            });
+        });
+
+        // Função para validar o formulário
+        function validateForm() {
+            const studentName = document.getElementById('student-name').value;
+            const activityDate = document.getElementById('activity-date').value;
+
+            if (!studentName) {
+                alert('Por favor, selecione seu nome na lista.');
+                return false;
+            }
+
+            if (!activityDate) {
+                alert('Por favor, preencha a data.');
+                return false;
+            }
+
+            // Verificar se todas as questões foram respondidas
+            for (let i = 1; i <= 10; i++) {
+                const questionName = `q${i}`;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                if (!selectedOption) {
+                    alert(`Por favor, responda a questão ${i}.`);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // Função para calcular a pontuação
+        function calculateScore() {
+            let score = 0;
+            for (let i = 1; i <= 10; i++) {
+                const questionName = `q${i}`;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                if (selectedOption && selectedOption.value === correctAnswers[questionName]) {
+                    score++;
+                }
+            }
+            return score;
+        }
+
+        // Função para mostrar o resultado
+        function showResult(score) {
+            const resultMessage = document.getElementById('result-message');
+            const percentage = (score / 10) * 100;
+            
+            resultMessage.textContent = `Sua pontuação: ${score}/10 (${percentage}%)`;
+            resultMessage.className = 'result ' + (percentage >= 70 ? 'success' : 'error');
+            resultMessage.style.display = 'block';
+            
+            // Rolagem suave para o resultado
+            resultMessage.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Função para limpar o formulário
+        function clearForm() {
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+            document.getElementById('result-message').style.display = 'none';
+        }
+
+        // Função para enviar para o Google Sheets (simulação)
+        function sendToGoogleSheets(score) {
+            const studentName = document.getElementById('student-name').value;
+            const studentNumber = document.getElementById('student-number').value;
+            const activityDate = document.getElementById('activity-date').value;
+            
+            // Aqui seria o código para enviar para o Google Sheets
+            // Como não temos acesso real à API, isso é apenas uma simulação
+            console.log('Dados para envio:', {
+                studentName,
+                studentNumber,
+                activityDate,
+                score
+            });
+            
+            // Em um ambiente real, faríamos uma requisição para o Google Apps Script
+            // fetch(scriptUrl, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //         studentName,
+            //         studentNumber,
+            //         activityDate,
+            //         score
+            //     })
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log('Sucesso:', data);
+            // })
+            // .catch(error => {
+            //     console.error('Erro:', error);
+            // });
+        }
+    </script>
+</body>
+</html>
