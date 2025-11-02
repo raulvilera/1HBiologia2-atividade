@@ -62,6 +62,12 @@
             min-width: 150px;
         }
         
+        /* Campo NOME com largura maior */
+        .name-field {
+            flex: 3; /* Ocupa mais espaço que os outros campos */
+            min-width: 250px;
+        }
+        
         .info-field label {
             font-weight: bold;
             white-space: nowrap;
@@ -72,9 +78,9 @@
             border: 1px solid #ccc;
             border-radius: 3px;
             width: 100%;
-            max-width: 200px;
         }
         
+        /* Ajustes específicos para campos menores */
         #student-number {
             max-width: 60px; /* Largura reduzida para o campo Nº */
         }
@@ -149,6 +155,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
+            gap: 10px;
         }
         
         button {
@@ -157,6 +164,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            flex: 1;
         }
         
         #submit-btn {
@@ -195,6 +203,65 @@
             background-color: #f8d7da;
             color: #721c24;
         }
+        
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .info-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .info-field {
+                min-width: 100%;
+            }
+            
+            .name-field {
+                min-width: 100%;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px;
+            }
+            
+            .school-name {
+                font-size: 16px;
+            }
+            
+            .question {
+                padding: 15px;
+            }
+            
+            .question-number {
+                font-size: 16px;
+            }
+            
+            .option {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .option input {
+                margin-bottom: 5px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -203,7 +270,7 @@
             <div class="school-name">E.E. PROFª LYDIA KITZ MOREIRA</div>
             <div class="student-info">
                 <div class="info-row">
-                    <div class="info-field">
+                    <div class="info-field name-field">
                         <label for="student-name">NOME:</label>
                         <select id="student-name">
                             <option value="">Selecione seu nome</option>
@@ -344,7 +411,7 @@
                 <div class="question-number">Questão 4</div>
                 <div class="question-text">
                     <p>Observe a imagem que representa bactérias em diferentes habitats:</p>
-                    <center><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqdi1mYJhtqiq9GxRqxpB3YoLkcjpPwt17jFazf2xSiatPmqVPaHgYBr6GrmzvwDed7UdS29ia5iSfTdiL38Puv7QX5nveCzbQ4Wh1DGItxTQJQw-9PbInjE_uhWhtTKn64aEuVJa4mozMGUSBQQCuLESW5BiaQsWxaRV7H3DE1zNZYGJf9zq83iKtNBOg/s488/Capturar.JPG" class="question-image"></center>
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqdi1mYJhtqiq9GxRqxpB3YoLkcjpPwt17jFazf2xSiatPmqVPaHgYBr6GrmzvwDed7UdS29ia5iSfTdiL38Puv7QX5nveCzbQ4Wh1DGItxTQJQw-9PbInjE_uhWhtTKn64aEuVJa4mozMGUSBQQCuLESW5BiaQsWxaRV7H3DE1zNZYGJf9zq83iKtNBOg/s488/Capturar.JPG" class="question-image">
                     <p>Com base na imagem e nos conhecimentos sobre classificação das bactérias por habitat, assinale a alternativa que apresenta a classificação <strong>INCORRETA</strong>:</p>
                 </div>
                 <div class="options">
@@ -443,7 +510,7 @@
                 <div class="question-number">Questão 7</div>
                 <div class="question-text">
                     <p>Observe a imagem que representa o processo de reprodução bacteriana por bipartição:</p>
-                   <center><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIoZyaBPweYzg0pu3tv7WejNO38rSavJVTOMgRoy2CjypfkAFgvEBQpNniIudHcodfgkYkkhS9vc2lzekyalR64sJ60NbXYtuUfnSKFgh5oeSLCjc-KoMoLMgYREXsCcBEpIr12E3wyXeqUYVzogIRReNt_qhcpB9VfIT3EV4QKNeyFLcnsZqSK-W4CO4f/s320/Capturar.JPG" style="display: block; padding: 1em 0; text-align: center; "><img alt="" border="0" width="200"></center>
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIoZyaBPweYzg0pu3tv7WejNO38rSavJVTOMgRoy2CjypfkAFgvEBQpNniIudHcodfgkYkkhS9vc2lzekyalR64sJ60NbXYtuUfnSKFgh5oeSLCjc-KoMoLMgYREXsCcBEpIr12E3wyXeqUYVzogIRReNt_qhcpB9VfIT3EV4QKNeyFLcnsZqSK-W4CO4f/s320/Capturar.JPG" class="question-image">
                     <p>Com base na imagem e nos conhecimentos sobre reprodução bacteriana, assinale a alternativa <strong>CORRETA:</strong></p>
                 </div>
                 <div class="options">
@@ -474,9 +541,9 @@
             <div class="question">
                 <div class="question-number">Questão 8</div>
                 <div class="question-text">
-                    <p>Analise a imagem que representa métodos de eliminação de bactérias:</p><br>
-                    <center><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLbWbG_Kw6mfpi5RY_ZlrlCIm3QBDeYmIUh2kbkOwLwDslVaR1WvzxwPCc3IYYc8-IOSpkF1eV6BGM_AQUh6YG_7ol1JbH-_i3VavJbSpy5HdJOtWx2c_Tcl_l3iNqkMAFDW5UmvGYukKrsj3n1ZY3W_kVEVobMf2lZVkMGPTRF9RLmf0i_HE0bDxqMHAO/s500/80cbf719-30d5-467b-480e-3c181569eb2e.png"></center>
-                    <br><p>Com base na imagem e nos conhecimentos sobre métodos de eliminação de bactérias, assinale a alternativa que apresenta a relação <strong>CORRETA</strong> entre o método e sua descrição:</p>
+                    <p>Analise a imagem que representa métodos de eliminação de bactérias:</p>
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLbWbG_Kw6mfpi5RY_ZlrlCIm3QBDeYmIUh2kbkOwLwDslVaR1WvzxwPCc3IYYc8-IOSpkF1eV6BGM_AQUh6YG_7ol1JbH-_i3VavJbSpy5HdJOtWx2c_Tcl_l3iNqkMAFDW5UmvGYukKrsj3n1ZY3W_kVEVobMf2lZVkMGPTRF9RLmf0i_HE0bDxqMHAO/s500/80cbf719-30d5-467b-480e-3c181569eb2e.png" class="question-image">
+                    <p>Com base na imagem e nos conhecimentos sobre métodos de eliminação de bactérias, assinale a alternativa que apresenta a relação <strong>CORRETA</strong> entre o método e sua descrição:</p>
                 </div>
                 <div class="options">
                     <div class="option">
@@ -508,8 +575,8 @@
                 <div class="question-text">
                     <p>Com base no experimento sobre crescimento bacteriano apresentado no material de estudo, analise as seguintes situações:</p>
                     <p>Em um experimento com três tubos de ensaio contendo meio de cultura, foram observados os seguintes resultados após alguns dias:</p>
-                     <center><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhWBi2_kz-YyA4f3hkYFgrFRKtx5V7Fd51-nIBetID_X3F96gEdyLxKaC_PZ_7JS9PrMFv9JAVqvNwEze15ipmUvstdih3CviMWdag4qvjBPykykhe5bu5k3qdRg6zHZedxXkkBKXE1UR5TThn1MkoMtYvAQiT_VkBjnxisOuO7MgXggq4EIf1RVoueCJNc/s550/Capturar.png"></center>
-                    <br><p><strong>- Tubo 1:</strong> crescimento bacteriano apenas na porção superior do meio de cultura</p>
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhWBi2_kz-YyA4f3hkYFgrFRKtx5V7Fd51-nIBetID_X3F96gEdyLxKaC_PZ_7JS9PrMFv9JAVqvNwEze15ipmUvstdih3CviMWdag4qvjBPykykhe5bu5k3qdRg6zHZedxXkkBKXE1UR5TThn1MkoMtYvAQiT_VkBjnxisOuO7MgXggq4EIf1RVoueCJNc/s550/Capturar.png" class="question-image">
+                    <p><strong>- Tubo 1:</strong> crescimento bacteriano apenas na porção superior do meio de cultura</p>
                     <p><strong>- Tubo 2:</strong> crescimento bacteriano apenas na parte inferior do meio de cultura</p>
                     <p><strong>- Tubo 3:</strong> crescimento bacteriano em todo o meio de cultura</p>
                     <p>Com base nesses resultados e nos conhecimentos sobre classificação metabólica das bactérias, é <strong>CORRETO</strong> afirmar que:</p>
@@ -542,9 +609,9 @@
             <div class="question">
                 <div class="question-number">Questão 10</div>
                 <div class="question-text">
-                    <p>Observe a imagem que representa a ação de antibióticos sobre bactérias:</p><br>
-                    <center><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiR8IyarBoJtGx2tLbbzt7yP7skZbTH3nmqC37BMthWkYznDElBYDsvJEr57UCMd9vBDODFLFgxMgFXauj5xzj9XW51tDhf8lRN0_xEBSDyGq7_ctUkCxnRrbZwHh_vMX51FwQ_LYBmL9vUkUMQ8My9hMWmTib-lizGKhgI7ccSvPPxYY2rndkmeAXYY79m/s600/Capturar.JPG"></center>
-                    <br><p>Com base na imagem e nos conhecimentos sobre o uso de antibióticos, analise as seguintes afirmações:</p>
+                    <p>Observe a imagem que representa a ação de antibióticos sobre bactérias:</p>
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiR8IyarBoJtGx2tLbbzt7yP7skZbTH3nmqC37BMthWkYznDElBYDsvJEr57UCMd9vBDODFLFgxMgFXauj5xzj9XW51tDhf8lRN0_xEBSDyGq7_ctUkCxnRrbZwHh_vMX51FwQ_LYBmL9vUkUMQ8My9hMWmTib-lizGKhgI7ccSvPPxYY2rndkmeAXYY79m/s600/Capturar.JPG" class="question-image">
+                    <p>Com base na imagem e nos conhecimentos sobre o uso de antibióticos, analise as seguintes afirmações:</p>
                     <p>I. Os antibióticos atuam especificamente sobre o metabolismo das bactérias.</p>
                     <p>II. Antibióticos podem ser utilizados para tratar infecções causadas por vírus.</p>
                     <p>III. O uso inadequado de antibióticos pode levar ao desenvolvimento de bactérias resistentes.</p>
@@ -801,45 +868,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
