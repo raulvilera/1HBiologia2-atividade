@@ -702,7 +702,8 @@ const correctAnswers = {
 
 let submitted = false;
 
-window.addEventListener("load", () => {
+// Função para inicializar a página
+function initializePage() {
   try {
     const studentSelect = document.getElementById("student-name");
     const resultMessage = document.getElementById("result-message");
@@ -710,64 +711,93 @@ window.addEventListener("load", () => {
     const submitBtn = document.getElementById("submit-btn");
     const dateInput = document.getElementById("activity-date");
 
-    if (!studentSelect) throw new Error("Elemento 'student-name' não encontrado no DOM.");
+    if (!studentSelect) {
+      throw new Error("Elemento 'student-name' não encontrado no DOM.");
+    }
 
-    // Preenche dropdown
-    studentSelect.innerHTML = '<option value="">Selecione seu nome</option>';
-    students.forEach((s, i) => {
-      const opt = document.createElement("option");
-      opt.value = s.number;
-      opt.textContent = s.name;
-      opt.className = `stripe-${i % 2}`;
-      studentSelect.appendChild(opt);
-    });
+    // Preenche o dropdown com os alunos
+    populateStudentDropdown(studentSelect);
 
-    // Define data atual
+    // Define a data atual
     if (dateInput) {
       dateInput.value = new Date().toISOString().split("T")[0];
     }
 
     // Atualiza número ao escolher nome
-    studentSelect.addEventListener("change", e => {
-      const selected = students.find(stu => stu.number === e.target.value);
-      document.getElementById("student-number").value = selected ? selected.number : "";
+    studentSelect.addEventListener("change", function(e) {
+      const selectedStudent = students.find(student => student.number === e.target.value);
+      const studentNumberField = document.getElementById("student-number");
+      if (studentNumberField) {
+        studentNumberField.value = selectedStudent ? selectedStudent.number : "";
+      }
     });
 
     // Botão limpar
-    clearBtn?.addEventListener("click", () => {
-      if (submitted) return alert("Não é possível limpar após envio.");
-      clearForm(resultMessage);
-    });
+    if (clearBtn) {
+      clearBtn.addEventListener("click", function() {
+        if (submitted) {
+          alert("Não é possível limpar após envio.");
+          return;
+        }
+        clearForm(resultMessage);
+      });
+    }
 
     // Botão enviar
-    submitBtn?.addEventListener("click", async () => {
-      if (submitted) return alert("Você já enviou suas respostas.");
+    if (submitBtn) {
+      submitBtn.addEventListener("click", async function() {
+        if (submitted) {
+          alert("Você já enviou suas respostas.");
+          return;
+        }
 
-      if (!validateForm()) return;
+        if (!validateForm()) {
+          return;
+        }
 
-      const score = calculateScore();
-      showResult(score, resultMessage);
+        const score = calculateScore();
+        showResult(score, resultMessage);
 
-      const student = students.find(s => s.number === studentSelect.value);
-      if (!student) return alert("Erro: aluno não encontrado.");
+        const studentSelect = document.getElementById("student-name");
+        const student = students.find(s => s.number === studentSelect.value);
+        if (!student) {
+          alert("Erro: aluno não encontrado.");
+          return;
+        }
 
-      const activityId = 1; // mude para 2 se for outra atividade
+        const activityId = 1; // mude para 2 se for outra atividade
 
-      try {
-        await sendToGoogleSheets(student.name, score, activityId);
-        submitted = true;
-        submitBtn.disabled = true;
-        alert(`Respostas enviadas com sucesso! Nota: ${score}/10`);
-      } catch (err) {
-        console.error(err);
-        alert("Erro ao enviar respostas: " + err.message);
-      }
-    });
+        try {
+          await sendToGoogleSheets(student.name, score, activityId);
+          submitted = true;
+          submitBtn.disabled = true;
+          alert(`Respostas enviadas com sucesso! Nota: ${score}/10`);
+        } catch (err) {
+          console.error(err);
+          alert("Erro ao enviar respostas: " + err.message);
+        }
+      });
+    }
   } catch (error) {
     console.error("Erro na inicialização:", error);
     alert("Erro ao carregar o formulário. Recarregue a página.");
   }
-});
+}
+
+// Função para preencher o dropdown de alunos
+function populateStudentDropdown(selectElement) {
+  // Limpa opções existentes
+  selectElement.innerHTML = '<option value="">Selecione seu nome</option>';
+  
+  // Adiciona cada aluno como uma opção
+  students.forEach((student, index) => {
+    const option = document.createElement("option");
+    option.value = student.number;
+    option.textContent = student.name;
+    option.className = `stripe-${index % 2}`;
+    selectElement.appendChild(option);
+  });
+}
 
 function validateForm() {
   const studentName = document.getElementById("student-name").value;
@@ -783,9 +813,9 @@ function validateForm() {
   }
 
   for (let i = 1; i <= 10; i++) {
-    const q = `q${i}`;
-    const opt = document.querySelector(`input[name="${q}"]:checked`);
-    if (!opt) {
+    const questionName = `q${i}`;
+    const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+    if (!selectedOption) {
       if (!confirm(`Você não respondeu a questão ${i}. Deseja enviar mesmo assim?`)) {
         return false;
       }
@@ -797,29 +827,39 @@ function validateForm() {
 function calculateScore() {
   let score = 0;
   for (let i = 1; i <= 10; i++) {
-    const q = `q${i}`;
-    const selected = document.querySelector(`input[name="${q}"]:checked`);
-    if (selected && selected.value === correctAnswers[q]) score++;
+    const questionName = `q${i}`;
+    const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+    if (selectedOption && selectedOption.value === correctAnswers[questionName]) {
+      score++;
+    }
   }
   return score;
 }
 
 function showResult(score, container) {
-  const percent = (score / 10) * 100;
-  container.textContent = `Sua pontuação: ${score}/10 (${percent}%)`;
-  container.className = "result " + (percent >= 70 ? "success" : "error");
+  const percentage = (score / 10) * 100;
+  container.textContent = `Sua pontuação: ${score}/10 (${percentage}%)`;
+  container.className = "result " + (percentage >= 70 ? "success" : "error");
   container.style.display = "block";
   container.scrollIntoView({ behavior: "smooth" });
 }
 
 function clearForm(container) {
-  document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-  container.style.display = "none";
+  document.querySelectorAll('input[type="radio"]').forEach(radio => {
+    radio.checked = false;
+  });
+  if (container) {
+    container.style.display = "none";
+  }
 }
 
 async function sendToGoogleSheets(studentName, score, activityId) {
   const scriptUrl = "https://script.google.com/macros/s/AKfycbwTYjpl0g7-Ykf-T6kfS1Kw6nQwibAkU8L1WnaayB2cfio7WsUCGC1o1qjHK15tM7nP/exec";
-  const data = { studentName, score, activity: activityId };
+  const data = { 
+    studentName: studentName, 
+    score: score, 
+    activity: activityId 
+  };
 
   const response = await fetch(scriptUrl, {
     method: "POST",
@@ -828,19 +868,19 @@ async function sendToGoogleSheets(studentName, score, activityId) {
     body: JSON.stringify(data)
   });
 
-  if (!response.ok) throw new Error("Falha ao enviar dados (HTTP " + response.status + ").");
+  if (!response.ok) {
+    throw new Error("Falha ao enviar dados (HTTP " + response.status + ").");
+  }
 
   const result = await response.json().catch(() => null);
-  if (!result || !result.success) throw new Error(result?.message || "Erro ao salvar no Google Sheets.");
+  if (!result || !result.success) {
+    throw new Error(result?.message || "Erro ao salvar no Google Sheets.");
+  }
 }
+
+// Inicializa a página quando o DOM estiver carregado
+document.addEventListener("DOMContentLoaded", initializePage);
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
