@@ -652,9 +652,6 @@
     </div>
 
 <script>
-// ======================================================
-// LISTA DE ALUNOS
-// ======================================================
 const students = [
   { number: "1", name: "ALEXANDRE BATISTA DOS SANTOS" },
   { number: "5", name: "ANA LÍVIA BRAGA DOS SANTOS" },
@@ -698,109 +695,97 @@ const students = [
   { number: "86", name: "KAMILA NEVES BRITO" }
 ];
 
-// ======================================================
-// GABARITO (oculto)
-// ======================================================
 const correctAnswers = {
-  q1: "b",
-  q2: "b",
-  q3: "a",
-  q4: "c",
-  q5: "a",
-  q6: "d",
-  q7: "c",
-  q8: "c",
-  q9: "c",
-  q10: "b"
+  q1: "b", q2: "b", q3: "a", q4: "c", q5: "a",
+  q6: "d", q7: "c", q8: "c", q9: "c", q10: "b"
 };
 
-// ======================================================
-// CONTROLE
-// ======================================================
 let submitted = false;
 
-// ======================================================
-// INICIALIZAÇÃO DA PÁGINA
-// ======================================================
-document.addEventListener("DOMContentLoaded", () => {
-  const studentSelect = document.getElementById("student-name");
-  const resultMessage = document.getElementById("result-message");
+window.addEventListener("load", () => {
+  try {
+    const studentSelect = document.getElementById("student-name");
+    const resultMessage = document.getElementById("result-message");
+    const clearBtn = document.getElementById("clear-btn");
+    const submitBtn = document.getElementById("submit-btn");
+    const dateInput = document.getElementById("activity-date");
 
-  // Preenche lista de alunos
-  students.forEach((student, i) => {
-    const option = document.createElement("option");
-    option.value = student.number;
-    option.textContent = student.name;
-    option.className = `stripe-${i % 2}`;
-    studentSelect.appendChild(option);
-  });
+    if (!studentSelect) throw new Error("Elemento 'student-name' não encontrado no DOM.");
 
-  // Define a data atual
-  document.getElementById("activity-date").value = new Date().toISOString().split("T")[0];
+    // Preenche dropdown
+    studentSelect.innerHTML = '<option value="">Selecione seu nome</option>';
+    students.forEach((s, i) => {
+      const opt = document.createElement("option");
+      opt.value = s.number;
+      opt.textContent = s.name;
+      opt.className = `stripe-${i % 2}`;
+      studentSelect.appendChild(opt);
+    });
 
-  // Atualiza número do aluno ao selecionar
-  studentSelect.addEventListener("change", function() {
-    const sel = students.find(s => s.number === this.value);
-    document.getElementById("student-number").value = sel ? sel.number : "";
-  });
+    // Define data atual
+    if (dateInput) {
+      dateInput.value = new Date().toISOString().split("T")[0];
+    }
 
-  // Limpa o formulário
-  document.getElementById("clear-btn").addEventListener("click", () => {
-    if (submitted) {
-      alert("Não é possível limpar após o envio.");
-    } else {
+    // Atualiza número ao escolher nome
+    studentSelect.addEventListener("change", e => {
+      const selected = students.find(stu => stu.number === e.target.value);
+      document.getElementById("student-number").value = selected ? selected.number : "";
+    });
+
+    // Botão limpar
+    clearBtn?.addEventListener("click", () => {
+      if (submitted) return alert("Não é possível limpar após envio.");
       clearForm(resultMessage);
-    }
-  });
+    });
 
-  // Envio do formulário
-  document.getElementById("submit-btn").addEventListener("click", async () => {
-    if (submitted) {
-      alert("Você já enviou suas respostas.");
-      return;
-    }
+    // Botão enviar
+    submitBtn?.addEventListener("click", async () => {
+      if (submitted) return alert("Você já enviou suas respostas.");
 
-    if (!validateForm()) return;
+      if (!validateForm()) return;
 
-    const score = calculateScore();
-    showResult(score, resultMessage);
+      const score = calculateScore();
+      showResult(score, resultMessage);
 
-    const student = students.find(s => s.number === studentSelect.value);
-    if (!student) return alert("Erro: aluno inválido.");
+      const student = students.find(s => s.number === studentSelect.value);
+      if (!student) return alert("Erro: aluno não encontrado.");
 
-    const activityId = 1; // Mude para 2 se for segunda atividade
+      const activityId = 1; // mude para 2 se for outra atividade
 
-    try {
-      await sendToGoogleSheets(student.name, score, activityId);
-      submitted = true;
-      document.getElementById("submit-btn").disabled = true;
-      alert(`Respostas enviadas com sucesso! Nota: ${score}/10`);
-    } catch (err) {
-      console.error("Erro ao enviar:", err);
-      alert("❌ Erro ao enviar as respostas:\n" + err.message);
-    }
-  });
+      try {
+        await sendToGoogleSheets(student.name, score, activityId);
+        submitted = true;
+        submitBtn.disabled = true;
+        alert(`Respostas enviadas com sucesso! Nota: ${score}/10`);
+      } catch (err) {
+        console.error(err);
+        alert("Erro ao enviar respostas: " + err.message);
+      }
+    });
+  } catch (error) {
+    console.error("Erro na inicialização:", error);
+    alert("Erro ao carregar o formulário. Recarregue a página.");
+  }
 });
 
-// ======================================================
-// FUNÇÕES DE VALIDAÇÃO E CÁLCULO
-// ======================================================
 function validateForm() {
-  const name = document.getElementById("student-name").value;
-  const date = document.getElementById("activity-date").value;
+  const studentName = document.getElementById("student-name").value;
+  const activityDate = document.getElementById("activity-date").value;
 
-  if (!name) {
-    alert("Selecione seu nome na lista.");
+  if (!studentName) {
+    alert("Por favor, selecione seu nome na lista.");
     return false;
   }
-  if (!date) {
-    alert("Preencha a data da atividade.");
+  if (!activityDate) {
+    alert("Por favor, preencha a data.");
     return false;
   }
 
   for (let i = 1; i <= 10; i++) {
     const q = `q${i}`;
-    if (!document.querySelector(`input[name="${q}"]:checked`)) {
+    const opt = document.querySelector(`input[name="${q}"]:checked`);
+    if (!opt) {
       if (!confirm(`Você não respondeu a questão ${i}. Deseja enviar mesmo assim?`)) {
         return false;
       }
@@ -820,48 +805,39 @@ function calculateScore() {
 }
 
 function showResult(score, container) {
-  const pct = (score / 10) * 100;
-  container.textContent = `Sua pontuação: ${score}/10 (${pct.toFixed(0)}%)`;
-  container.className = "result " + (pct >= 70 ? "success" : "error");
+  const percent = (score / 10) * 100;
+  container.textContent = `Sua pontuação: ${score}/10 (${percent}%)`;
+  container.className = "result " + (percent >= 70 ? "success" : "error");
   container.style.display = "block";
   container.scrollIntoView({ behavior: "smooth" });
 }
 
 function clearForm(container) {
-  document.querySelectorAll('input[type="radio"]').forEach(r => (r.checked = false));
+  document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
   container.style.display = "none";
 }
 
-// ======================================================
-// ENVIO AO GOOGLE SHEETS
-// ======================================================
 async function sendToGoogleSheets(studentName, score, activityId) {
-  const scriptUrl = "https://script.google.com/macros/s/AKfycbwJRoj_nBTFDIjUc5rGqJ0xHNOcnGSnIDlfDPLgarDng3VVaEx3WCUyQC-EOv7pknA5/exec";
-  const payload = { studentName, score, activity: activityId };
+  const scriptUrl = "https://script.google.com/macros/s/AKfycbwTYjpl0g7-Ykf-T6kfS1Kw6nQwibAkU8L1WnaayB2cfio7WsUCGC1o1qjHK15tM7nP/exec";
+  const data = { studentName, score, activity: activityId };
 
   const response = await fetch(scriptUrl, {
     method: "POST",
+    mode: "cors",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(data)
   });
 
-  // Tratamento de erros de rede e servidor
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`Erro HTTP ${response.status}: ${text}`);
-  }
+  if (!response.ok) throw new Error("Falha ao enviar dados (HTTP " + response.status + ").");
 
   const result = await response.json().catch(() => null);
-  if (!result || !result.success) {
-    throw new Error(result?.message || "Falha no servidor do Google Apps Script.");
-  }
-
-  return true;
+  if (!result || !result.success) throw new Error(result?.message || "Erro ao salvar no Google Sheets.");
 }
 </script>
 
 </body>
 </html>
+
 
 
 
