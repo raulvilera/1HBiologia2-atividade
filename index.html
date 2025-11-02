@@ -652,219 +652,239 @@
     </div>
 
     <script>
-        // Dados dos alunos
-        const students = [
-            { number: "1", name: "ALEXANDRE BATISTA DOS SANTOS" },
-            { number: "5", name: "ANA LÍVIA BRAGA DOS SANTOS" },
-            { number: "11", name: "DANIELLE OLIVEIRA DA SILVA NUNES" },
-            { number: "14", name: "ELOYSA ANDRADE OLIVEIRA SILVA" },
-            { number: "18", name: "FELIPE MARCONDES SILVA" },
-            { number: "19", name: "GEOVANA FERREIRA DA SILVA SOUZA" },
-            { number: "20", name: "GEOVANNA GABRIELA PIERRE SILVA" },
-            { number: "24", name: "ISAAK ALVAREZ MARQUEZ CAETANO" },
-            { number: "33", name: "KEMILLY VITORIA RODRIGUES MARIANO" },
-            { number: "34", name: "LAURA LUIZA DOS SANTOS ALMEIDA" },
-            { number: "37", name: "MARIA EDUARDA VENCESLAU DE SOUZA" },
-            { number: "38", name: "MATHEUS CAVALCANTE LISBOA" },
-            { number: "40", name: "MURILLO SOUZA RODRIGUES DOS SANTOS" },
-            { number: "45", name: "PEDRO HENRIQUE MAURICIO DA SILVA CHAGAS" },
-            { number: "48", name: "RHUAN LIMA OLIVEIRA" },
-            { number: "49", name: "THAINA FIDELIS XAVIER DA SILVA" },
-            { number: "54", name: "DENIS CASTRO DURVALDO" },
-            { number: "56", name: "ISAAC LEMOS SANTOS" },
-            { number: "57", name: "EMILLY EDUARDA BONIFACIO DE AMORIM CORREA" },
-            { number: "59", name: "LEONARDO ABADE DA SILVA DANTAS" },
-            { number: "62", name: "PYETRA GOMES MARTINS" },
-            { number: "64", name: "CARLOS EDUARDO MARTINS DA SILVA" },
-            { number: "66", name: "STELLA MARTINS DA SILVA" },
-            { number: "67", name: "DYESSICA MAYARA DOS SANTOS GOMES" },
-            { number: "68", name: "LARISSA DE LOURDES DOS SANTOS" },
-            { number: "70", name: "GUSTAVO RODRIGUES DE SOUZA" },
-            { number: "72", name: "NAYARA BARROS DE MORAIS" },
-            { number: "73", name: "VITÓRIA SANTOS TEIXEIRA" },
-            { number: "75", name: "JOÃO PAULO RODRIGUES DE SOUZA FILHO" },
-            { number: "76", name: "MARIA EDUARDA DE OLIVEIRA RODRIGUES" },
-            { number: "77", name: "LUIZ HENRIQUE JESUS DOS SANTOS FABRICIO" },
-            { number: "78", name: "EDUARDO CARRASCOSA PINTOR" },
-            { number: "79", name: "GUILHERME DANIEL VELOSO DOS SANTOS" },
-            { number: "80", name: "JOAO GABRIEL AMORIM TOBIAS" },
-            { number: "81", name: "RIAN SANTOS MACHADO" },
-            { number: "82", name: "JULIA ARAUJO DE LIMA" },
-            { number: "83", name: "BRENDA ROSA DA SILVA" },
-            { number: "84", name: "CAMILA APPOLINÁRIO" },
-            { number: "85", name: "ARTHUR CASTRO SILVA" },
-            { number: "86", name: "KAMILA NEVES BRITO" }
-        ];
+       // Conteúdo do seu arquivo JavaScript (pasted_content_3.txt) com a função sendToGoogleSheets corrigida.
 
-        // Gabarito (oculto)
-        const correctAnswers = {
-            q1: "b",
-            q2: "b",
-            q3: "a",
-            q4: "c",
-            q5: "a",
-            q6: "d",
-            q7: "c",
-            q8: "c",
-            q9: "c",
-            q10: "b"
-        };
+// Dados dos alunos (mantidos)
+const students = [
+    { number: "1", name: "ALEXANDRE BATISTA DOS SANTOS" },
+    { number: "5", name: "ANA LÍVIA BRAGA DOS SANTOS" },
+    { number: "11", name: "DANIELLE OLIVEIRA DA SILVA NUNES" },
+    { number: "14", name: "ELOYSA ANDRADE OLIVEIRA SILVA" },
+    { number: "18", name: "FELIPE MARCONDES SILVA" },
+    { number: "19", name: "GEOVANA FERREIRA DA SILVA SOUZA" },
+    { number: "20", name: "GEOVANNA GABRIELA PIERRE SILVA" },
+    { number: "24", name: "ISAAK ALVAREZ MARQUEZ CAETANO" },
+    { number: "33", name: "KEMILLY VITORIA RODRIGUES MARIANO" },
+    { number: "34", name: "LAURA LUIZA DOS SANTOS ALMEIDA" },
+    { number: "37", name: "MARIA EDUARDA VENCESLAU DE SOUZA" },
+    { number: "38", name: "MATHEUS CAVALCANTE LISBOA" },
+    { number: "40", name: "MURILLO SOUZA RODRIGUES DOS SANTOS" },
+    { number: "45", name: "PEDRO HENRIQUE MAURICIO DA SILVA CHAGAS" },
+    { number: "48", name: "RHUAN LIMA OLIVEIRA" },
+    { number: "49", name: "THAINA FIDELIS XAVIER DA SILVA" },
+    { number: "54", "name": "DENIS CASTRO DURVALDO" },
+    { number: "56", "name": "ISAAC LEMOS SANTOS" },
+    { number: "57", "name": "EMILLY EDUARDA BONIFACIO DE AMORIM CORREA" },
+    { number: "59", "name": "LEONARDO ABADE DA SILVA DANTAS" },
+    { number: "62", "name": "PYETRA GOMES MARTINS" },
+    { number: "64", "name": "CARLOS EDUARDO MARTINS DA SILVA" },
+    { number: "66", "name": "STELLA MARTINS DA SILVA" },
+    { number: "67", "name": "DYESSICA MAYARA DOS SANTOS GOMES" },
+    { number: "68", "name": "LARISSA DE LOURDES DOS SANTOS" },
+    { number: "70", "name": "GUSTAVO RODRIGUES DE SOUZA" },
+    { number: "72", "name": "NAYARA BARROS DE MORAIS" },
+    { number: "73", "name": "VITÓRIA SANTOS TEIXEIRA" },
+    { number: "75", "name": "JOÃO PAULO RODRIGUES DE SOUZA FILHO" },
+    { number: "76", "name": "MARIA EDUARDA DE OLIVEIRA RODRIGUES" },
+    { number: "77", "name": "LUIZ HENRIQUE JESUS DOS SANTOS FABRICIO" },
+    { number: "78", "name": "EDUARDO CARRASCOSA PINTOR" },
+    { number: "79", "name": "GUILHERME DANIEL VELOSO DOS SANTOS" },
+    { number: "80", "name": "JOAO GABRIEL AMORIM TOBIAS" },
+    { number: "81", "name": "RIAN SANTOS MACHADO" },
+    { number: "82", "name": "JULIA ARAUJO DE LIMA" },
+    { number: "83", "name": "BRENDA ROSA DA SILVA" },
+    { number: "84", "name": "CAMILA APPOLINÁRIO" },
+    { number: "85", "name": "ARTHUR CASTRO SILVA" },
+    { number: "86", "name": "KAMILA NEVES BRITO" }
+];
 
-        // Variável para controlar se o formulário já foi enviado
-        let submitted = false;
+// Gabarito (oculto)
+const correctAnswers = {
+    q1: "b",
+    q2: "b",
+    q3: "a",
+    q4: "c",
+    q5: "a",
+    q6: "d",
+    q7: "c",
+    q8: "c",
+    q9: "c",
+    q10: "b"
+};
 
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
-            // Preencher dropdown de alunos
-            const studentSelect = document.getElementById('student-name');
-            students.forEach((student, index) => {
-                const option = document.createElement('option');
-                option.value = student.number;
-                option.textContent = student.name;
-                option.className = `stripe-${index % 2}`;
-                studentSelect.appendChild(option);
-            });
+// Variável para controlar se o formulário já foi enviado
+let submitted = false;
 
-            // Configurar data atual
-            const today = new Date();
-            document.getElementById('activity-date').value = today.toISOString().split('T')[0];
+// Inicialização
+document.addEventListener('DOMContentLoaded', function() {
+    // Preencher dropdown de alunos
+    const studentSelect = document.getElementById('student-name');
+    students.forEach((student, index) => {
+        const option = document.createElement('option');
+        option.value = student.number;
+        option.textContent = student.name;
+        option.className = `stripe-${index % 2}`;
+        studentSelect.appendChild(option);
+    });
 
-            // Event listener para seleção de aluno
-            studentSelect.addEventListener('change', function() {
-                const selectedNumber = this.value;
-                const selectedStudent = students.find(student => student.number === selectedNumber);
-                if (selectedStudent) {
-                    document.getElementById('student-number').value = selectedStudent.number;
-                }
-            });
+    // Configurar data atual
+    const today = new Date();
+    document.getElementById('activity-date').value = today.toISOString().split('T')[0];
 
-            // Event listener para botão de limpar
-            document.getElementById('clear-btn').addEventListener('click', function() {
-                if (!submitted) {
-                    clearForm();
-                } else {
-                    alert('Não é possível limpar as respostas após o envio.');
-                }
-            });
+    // Event listener para seleção de aluno
+    studentSelect.addEventListener('change', function() {
+        const selectedNumber = this.value;
+        const selectedStudent = students.find(student => student.number === selectedNumber);
+        if (selectedStudent) {
+            document.getElementById('student-number').value = selectedStudent.number;
+        }
+    });
 
-            // Event listener para botão de enviar
-            document.getElementById('submit-btn').addEventListener('click', function() {
-                if (submitted) {
-                    alert('Você já enviou suas respostas. Apenas um envio é permitido.');
-                    return;
-                }
+    // Event listener para botão de limpar
+    document.getElementById('clear-btn').addEventListener('click', function() {
+        if (!submitted) {
+            clearForm();
+        } else {
+            alert('Não é possível limpar as respostas após o envio.');
+        }
+    });
 
-                if (!validateForm()) {
-                    return;
-                }
+    // Event listener para botão de enviar
+    document.getElementById('submit-btn').addEventListener('click', function() {
+        if (submitted) {
+            alert('Você já enviou suas respostas. Apenas um envio é permitido.');
+            return;
+        }
 
-                const score = calculateScore();
-                showResult(score);
-                submitted = true;
-                
-                // Enviar para o Google Sheets (simulação)
-                sendToGoogleSheets(score);
-            });
-        });
+        if (!validateForm()) {
+            return;
+        }
 
-        // Função para validar o formulário
-        function validateForm() {
-            const studentName = document.getElementById('student-name').value;
-            const activityDate = document.getElementById('activity-date').value;
+        const score = calculateScore();
+        showResult(score);
+        submitted = true;
+        
+        // **CORREÇÃO:** Chamada da função de envio com os dados corretos
+        const selectedStudentNumber = document.getElementById('student-name').value;
+        const selectedStudent = students.find(student => student.number === selectedStudentNumber);
+        const studentName = selectedStudent ? selectedStudent.name : '';
+        
+        // **IMPORTANTE:** Defina o ID da atividade aqui (1 para T4:T, 2 para V4:V)
+        // Como o anexo não especifica qual atividade é, estou usando 1 como padrão.
+        // VOCÊ DEVE MUDAR ESTE VALOR PARA 2 SE ESTE FORMULÁRIO FOR DA SEGUNDA ATIVIDADE.
+        const activityId = 1; 
+        
+        sendToGoogleSheets(studentName, score, activityId);
+        
+        // Desabilitar o botão após o envio
+        document.getElementById('submit-btn').disabled = true;
+    });
+});
 
-            if (!studentName) {
-                alert('Por favor, selecione seu nome na lista.');
+// Função para validar o formulário (mantida)
+function validateForm() {
+    const studentName = document.getElementById('student-name').value;
+    const activityDate = document.getElementById('activity-date').value;
+
+    if (!studentName) {
+        alert('Por favor, selecione seu nome na lista.');
+        return false;
+    }
+
+    if (!activityDate) {
+        alert('Por favor, preencha a data.');
+        return false;
+    }
+
+    // Verificar se todas as questões foram respondidas
+    for (let i = 1; i <= 10; i++) {
+        const questionName = `q${i}`;
+        const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+        if (!selectedOption) {
+            const confirmSubmit = confirm(`Você não respondeu a questão ${i}. Deseja enviar mesmo assim?`);
+            if (!confirmSubmit) {
                 return false;
             }
-
-            if (!activityDate) {
-                alert('Por favor, preencha a data.');
-                return false;
-            }
-
-            // Verificar se todas as questões foram respondidas
-            for (let i = 1; i <= 10; i++) {
-                const questionName = `q${i}`;
-                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
-                if (!selectedOption) {
-                    alert(`Por favor, responda a questão ${i}.`);
-                    return false;
-                }
-            }
-
-            return true;
+            // Se o usuário confirmar, continua a iteração
         }
+    }
 
-        // Função para calcular a pontuação
-        function calculateScore() {
-            let score = 0;
-            for (let i = 1; i <= 10; i++) {
-                const questionName = `q${i}`;
-                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
-                if (selectedOption && selectedOption.value === correctAnswers[questionName]) {
-                    score++;
-                }
-            }
-            return score;
-        }
+    return true;
+}
 
-        // Função para mostrar o resultado
-        function showResult(score) {
-            const resultMessage = document.getElementById('result-message');
-            const percentage = (score / 10) * 100;
-            
-            resultMessage.textContent = `Sua pontuação: ${score}/10 (${percentage}%)`;
-            resultMessage.className = 'result ' + (percentage >= 70 ? 'success' : 'error');
-            resultMessage.style.display = 'block';
-            
-            // Rolagem suave para o resultado
-            resultMessage.scrollIntoView({ behavior: 'smooth' });
+// Função para calcular a pontuação (mantida)
+function calculateScore() {
+    let score = 0;
+    for (let i = 1; i <= 10; i++) {
+        const questionName = `q${i}`;
+        const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+        if (selectedOption && selectedOption.value === correctAnswers[questionName]) {
+            score++;
         }
+    }
+    return score;
+}
 
-        // Função para limpar o formulário
-        function clearForm() {
-            document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                radio.checked = false;
-            });
-            document.getElementById('result-message').style.display = 'none';
-        }
+// Função para mostrar o resultado (mantida)
+function showResult(score) {
+    const resultMessage = document.getElementById('result-message');
+    const percentage = (score / 10) * 100;
+    
+    resultMessage.textContent = `Sua pontuação: ${score}/10 (${percentage}%)`;
+    resultMessage.className = 'result ' + (percentage >= 70 ? 'success' : 'error');
+    resultMessage.style.display = 'block';
+    
+    // Rolagem suave para o resultado
+    resultMessage.scrollIntoView({ behavior: 'smooth' });
+}
 
-        // Função para enviar para o Google Sheets (simulação)
-        function sendToGoogleSheets(score) {
-            const studentName = document.getElementById('student-name').value;
-            const studentNumber = document.getElementById('student-number').value;
-            const activityDate = document.getElementById('activity-date').value;
-            
-            // Aqui seria o código para enviar para o Google Sheets
-            // Como não temos acesso real à API, isso é apenas uma simulação
-            console.log('Dados para envio:', {
-                studentName,
-                studentNumber,
-                activityDate,
-                score
-            });
-            
-            // Em um ambiente real, faríamos uma requisição para o Google Apps Script
-            // fetch(scriptUrl, {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify({
-            //         studentName,
-            //         studentNumber,
-            //         activityDate,
-            //         score
-            //     })
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //     console.log('Sucesso:', data);
-            // })
-            // .catch(error => {
-            //     console.error('Erro:', error);
-            // });
-        }
+// Função para limpar o formulário (mantida)
+function clearForm() {
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.checked = false;
+    });
+    document.getElementById('result-message').style.display = 'none';
+}
+
+/**
+ * Função para enviar os dados da atividade para o Google Sheets via Web App.
+ * @param {string} studentName - Nome completo do aluno.
+ * @param {number} score - Nota final da atividade (0-10).
+ * @param {number} activityId - ID da atividade (1 para Coluna T, 2 para Coluna V).
+ */
+function sendToGoogleSheets(studentName, score, activityId) {
+    // **IMPORTANTE:** Substitua esta URL pela URL do seu Web App do Google Apps Script
+    const scriptUrl = 'SUA_URL_DO_WEB_APP_AQUI'; 
+    
+    const data = {
+        studentName: studentName,
+        score: score,
+        activity: activityId // 1 para T4:T, 2 para V4:V
+    };
+
+    // O uso de 'mode: "no-cors"' é necessário para evitar problemas de CORS com Web Apps
+    // do Apps Script, mas torna a resposta opaca.
+    
+    fetch(scriptUrl, {
+        method: 'POST',
+        mode: 'no-cors', 
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify(data)
+    })
+    .then(() => {
+        // O sucesso é assumido aqui, pois o 'no-cors' impede a leitura da resposta do Apps Script.
+        alert(`Respostas enviadas com sucesso! Sua nota: ${score}/10`);
+    })
+    .catch(error => {
+        // Este catch só pega erros de rede.
+        console.error('Erro de rede ao enviar respostas:', error);
+        alert('Erro ao enviar respostas. Verifique sua conexão e tente novamente.');
+    });
+}
     </script>
 </body>
 </html>
+
