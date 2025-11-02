@@ -38,12 +38,13 @@
             font-weight: bold;
             font-size: 18px;
             margin-bottom: 10px;
+            width: 100%;
         }
         
         .student-info {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 10px;
         }
         
         .info-row {
@@ -58,13 +59,11 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            flex: 1;
-            min-width: 150px;
         }
         
         /* Campo NOME com largura maior */
         .name-field {
-            flex: 3; /* Ocupa mais espaço que os outros campos */
+            flex: 2;
             min-width: 250px;
         }
         
@@ -77,16 +76,15 @@
             padding: 5px;
             border: 1px solid #ccc;
             border-radius: 3px;
-            width: 100%;
         }
         
         /* Ajustes específicos para campos menores */
         #student-number {
-            max-width: 60px; /* Largura reduzida para o campo Nº */
+            width: 60px; /* Largura reduzida para o campo Nº */
         }
         
         #student-grade {
-            max-width: 60px; /* Largura reduzida para o campo Série */
+            width: 60px; /* Largura reduzida para o campo Série */
         }
         
         .activity-title {
@@ -100,12 +98,27 @@
             margin-bottom: 20px;
         }
         
+        /* Nova camada intermediária para as questões */
+        .questions-container {
+            background: linear-gradient(to bottom, #E6FFCC, #FFFFCC); /* Degradê verde limão e amarelo */
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
         .question {
             background-color: #ADD8E6; /* Azul claro */
             padding: 20px;
             border-radius: 5px;
-            margin-bottom: 5mm;
-            border-bottom: 2px solid white;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Espaçamento entre questões para mostrar a camada intermediária */
+        .question:not(:last-child) {
+            margin-bottom: 15px;
         }
         
         .question-number {
@@ -276,12 +289,12 @@
                             <option value="">Selecione seu nome</option>
                         </select>
                     </div>
+                </div>
+                <div class="info-row">
                     <div class="info-field">
                         <label for="student-number">Nº:</label>
                         <input type="text" id="student-number" readonly>
                     </div>
-                </div>
-                <div class="info-row">
                     <div class="info-field">
                         <label for="student-grade">SÉRIE:</label>
                         <input type="text" id="student-grade" value="1ºH" readonly>
@@ -297,358 +310,360 @@
         <div class="activity-title"><strong>ATIVIDADE DE BIOLOGIA (4º BIMESTRE)</strong></div>
         <div class="theme">Tema: Bactérias</div>
         
-        <form id="quiz-form">
-            <!-- Questão 1 -->
-            <div class="question">
-                <div class="question-number">Questão 1</div>
-                <div class="question-text">
-                    <p>As bactérias são organismos microscópicos que apresentam diversas características distintas. Com base nos conteúdos estudados sobre as principais características das bactérias, analise as seguintes afirmações:</p>
-                    <p>I. As bactérias são organismos procariontes, ou seja, não possuem um núcleo delimitado por membrana nuclear.</p>
-                    <p>II. Todas as bactérias são organismos multicelulares que formam colônias complexas.</p>
-                    <p>III. As bactérias possuem parede celular composta por proteínas e açúcares, localizada externamente à membrana plasmática.</p>
-                    <p>IV. A unidade de medida utilizada para bactérias é o micrômetro (µm), que corresponde à milésima parte do milímetro.</p>
-                    <p>Quais afirmações estão <strong>corretas</strong>?</p>
-                </div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q1a" name="q1" value="a">
-                        <label for="q1a">A) I, II e III</label>
+        <div class="questions-container">
+            <form id="quiz-form">
+                <!-- Questão 1 -->
+                <div class="question">
+                    <div class="question-number">Questão 1</div>
+                    <div class="question-text">
+                        <p>As bactérias são organismos microscópicos que apresentam diversas características distintas. Com base nos conteúdos estudados sobre as principais características das bactérias, analise as seguintes afirmações:</p>
+                        <p>I. As bactérias são organismos procariontes, ou seja, não possuem um núcleo delimitado por membrana nuclear.</p>
+                        <p>II. Todas as bactérias são organismos multicelulares que formam colônias complexas.</p>
+                        <p>III. As bactérias possuem parede celular composta por proteínas e açúcares, localizada externamente à membrana plasmática.</p>
+                        <p>IV. A unidade de medida utilizada para bactérias é o micrômetro (µm), que corresponde à milésima parte do milímetro.</p>
+                        <p>Quais afirmações estão <strong>corretas</strong>?</p>
                     </div>
-                    <div class="option">
-                        <input type="radio" id="q1b" name="q1" value="b">
-                        <label for="q1b">B) I, III e IV</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q1c" name="q1" value="c">
-                        <label for="q1c">C) II, III e IV</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q1d" name="q1" value="d">
-                        <label for="q1d">D) I, II e IV</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q1e" name="q1" value="e">
-                        <label for="q1e">E) II e IV</label>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Questão 2 -->
-            <div class="question">
-                <div class="question-number">Questão 2</div>
-                <div class="question-text">
-                    <p>Observe atentamente a imagem abaixo que representa diferentes formas bacterianas:</p>
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhs1RnHSdoiZP4_uTW5iOH76I-UbLKvIVuzrNXj3k_rgkJzP-57JEU_QRJX_dv0n3Fz3lGXTXLQk2ZxwkLHxMVeoiNM_oCkMq1DcjeiSCl5TJPLsoquUXUbf_7S_2UvaiN4dKEoXaGW_u-YnsKh674uJBLrdxW1HKgnn0ghKU7DHbYLtFfDNl9q9pEmRKRS/s941/Capturar.JPG" class="question-image">
-                    <p>Com base na imagem e nos conhecimentos sobre classificação morfológica das bactérias, assinale a alternativa que relaciona corretamente as formas bacterianas com suas descrições:</p>
-                </div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q2a" name="q2" value="a">
-                        <label for="q2a">A) Cocos - forma de bastão; Bacilos - forma arredondada; Espirilos - forma espiralada; Vibriões - forma de vírgula</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q2b" name="q2" value="b">
-                        <label for="q2b">B) Cocos - forma arredondada; Bacilos - forma de bastão; Espirilos - forma espiralada; Vibriões - forma de vírgula</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q2c" name="q2" value="c">
-                        <label for="q2c">C) Cocos - forma espiralada; Bacilos - forma arredondada; Espirilos - forma de bastão; Vibriões - forma de vírgula</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q2d" name="q2" value="d">
-                        <label for="q2d">D) Cocos - forma de vírgula; Bacilos - forma de bastão; Espirilos - forma arredondada; Vibriões - forma espiralada</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q2e" name="q2" value="e">
-                        <label for="q2e">E) Cocos - forma arredondada; Bacilos - forma espiralada; Espirilos - forma de bastão; Vibriões - forma de vírgula</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q1a" name="q1" value="a">
+                            <label for="q1a">A) I, II e III</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1b" name="q1" value="b">
+                            <label for="q1b">B) I, III e IV</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1c" name="q1" value="c">
+                            <label for="q1c">C) II, III e IV</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1d" name="q1" value="d">
+                            <label for="q1d">D) I, II e IV</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1e" name="q1" value="e">
+                            <label for="q1e">E) II e IV</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Questão 3 -->
-            <div class="question">
-                <div class="question-number">Questão 3</div>
-                <div class="question-text">
-                    <p>Analise a imagem que representa diferentes classificações metabólicas das bactérias em relação ao oxigênio:</p>
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgPj3BYZk2O-0_vT3EQ0HAFQ1IkjRQBHOAQS2Rz2J8ySChGstYnZGbdACN3jWGfvFXZKtq0OLFGjZQf2a6TNWCa5CHE3QR5iW9BT60HH2oCLBUN7zSjDnZhlqEhDJ2jgq6K9XdyqdDI6geWAG_FUJmwDLwBO83dG92C9zaMiG1oO18nCVWwiS9xyNrVABc6/s943/Classifica%C3%A7%C3%A3o.JPG" class="question-image">
-                    <p>Com base na imagem e nos conhecimentos sobre classificação metabólica das bactérias, <strong>relacione as colunas</strong> abaixo:</p>
-                    <p>1. Aeróbias</p>
-                    <p>2. Anaeróbias obrigatórias</p>
-                    <p>3. Anaeróbias facultativas</p>
-                    <p>4. Microaerófilas</p>
-                    <p>( ) Bactérias que necessitam de gás oxigênio para sobreviver</p>
-                    <p>( ) Bactérias que não necessitam de gás oxigênio para viver</p>
-                    <p>( ) Bactérias que sobrevivem com ou sem gás oxigênio</p>
-                    <p>( ) Bactérias que necessitam de baixas concentrações de gás oxigênio para sobreviver</p>
-                    <p>A sequência correta é:</p>
-                </div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q3a" name="q3" value="a">
-                        <label for="q3a">A) 1, 2, 3, 4</label>
+                
+                <!-- Questão 2 -->
+                <div class="question">
+                    <div class="question-number">Questão 2</div>
+                    <div class="question-text">
+                        <p>Observe atentamente a imagem abaixo que representa diferentes formas bacterianas:</p>
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhs1RnHSdoiZP4_uTW5iOH76I-UbLKvIVuzrNXj3k_rgkJzP-57JEU_QRJX_dv0n3Fz3lGXTXLQk2ZxwkLHxMVeoiNM_oCkMq1DcjeiSCl5TJPLsoquUXUbf_7S_2UvaiN4dKEoXaGW_u-YnsKh674uJBLrdxW1HKgnn0ghKU7DHbYLtFfDNl9q9pEmRKRS/s941/Capturar.JPG" class="question-image">
+                        <p>Com base na imagem e nos conhecimentos sobre classificação morfológica das bactérias, assinale a alternativa que relaciona corretamente as formas bacterianas com suas descrições:</p>
                     </div>
-                    <div class="option">
-                        <input type="radio" id="q3b" name="q3" value="b">
-                        <label for="q3b">B) 1, 3, 2, 4</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q3c" name="q3" value="c">
-                        <label for="q3c">C) 2, 1, 4, 3</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q3d" name="q3" value="d">
-                        <label for="q3d">D) 3, 2, 1, 4</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q3e" name="q3" value="e">
-                        <label for="q3e">E) 4, 3, 2, 1</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q2a" name="q2" value="a">
+                            <label for="q2a">A) Cocos - forma de bastão; Bacilos - forma arredondada; Espirilos - forma espiralada; Vibriões - forma de vírgula</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2b" name="q2" value="b">
+                            <label for="q2b">B) Cocos - forma arredondada; Bacilos - forma de bastão; Espirilos - forma espiralada; Vibriões - forma de vírgula</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2c" name="q2" value="c">
+                            <label for="q2c">C) Cocos - forma espiralada; Bacilos - forma arredondada; Espirilos - forma de bastão; Vibriões - forma de vírgula</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2d" name="q2" value="d">
+                            <label for="q2d">D) Cocos - forma de vírgula; Bacilos - forma de bastão; Espirilos - forma arredondada; Vibriões - forma espiralada</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2e" name="q2" value="e">
+                            <label for="q2e">E) Cocos - forma arredondada; Bacilos - forma espiralada; Espirilos - forma de bastão; Vibriões - forma de vírgula</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Questão 4 -->
-            <div class="question">
-                <div class="question-number">Questão 4</div>
-                <div class="question-text">
-                    <p>Observe a imagem que representa bactérias em diferentes habitats:</p>
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqdi1mYJhtqiq9GxRqxpB3YoLkcjpPwt17jFazf2xSiatPmqVPaHgYBr6GrmzvwDed7UdS29ia5iSfTdiL38Puv7QX5nveCzbQ4Wh1DGItxTQJQw-9PbInjE_uhWhtTKn64aEuVJa4mozMGUSBQQCuLESW5BiaQsWxaRV7H3DE1zNZYGJf9zq83iKtNBOg/s488/Capturar.JPG" class="question-image">
-                    <p>Com base na imagem e nos conhecimentos sobre classificação das bactérias por habitat, assinale a alternativa que apresenta a classificação <strong>INCORRETA</strong>:</p>
-                </div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q4a" name="q4" value="a">
-                        <label for="q4a">A) Bactérias aéreas - habitam o ar</label>
+                
+                <!-- Questão 3 -->
+                <div class="question">
+                    <div class="question-number">Questão 3</div>
+                    <div class="question-text">
+                        <p>Analise a imagem que representa diferentes classificações metabólicas das bactérias em relação ao oxigênio:</p>
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgPj3BYZk2O-0_vT3EQ0HAFQ1IkjRQBHOAQS2Rz2J8ySChGstYnZGbdACN3jWGfvFXZKtq0OLFGjZQf2a6TNWCa5CHE3QR5iW9BT60HH2oCLBUN7zSjDnZhlqEhDJ2jgq6K9XdyqdDI6geWAG_FUJmwDLwBO83dG92C9zaMiG1oO18nCVWwiS9xyNrVABc6/s943/Classifica%C3%A7%C3%A3o.JPG" class="question-image">
+                        <p>Com base na imagem e nos conhecimentos sobre classificação metabólica das bactérias, <strong>relacione as colunas</strong> abaixo:</p>
+                        <p>1. Aeróbias</p>
+                        <p>2. Anaeróbias obrigatórias</p>
+                        <p>3. Anaeróbias facultativas</p>
+                        <p>4. Microaerófilas</p>
+                        <p>( ) Bactérias que necessitam de gás oxigênio para sobreviver</p>
+                        <p>( ) Bactérias que não necessitam de gás oxigênio para viver</p>
+                        <p>( ) Bactérias que sobrevivem com ou sem gás oxigênio</p>
+                        <p>( ) Bactérias que necessitam de baixas concentrações de gás oxigênio para sobreviver</p>
+                        <p>A sequência correta é:</p>
                     </div>
-                    <div class="option">
-                        <input type="radio" id="q4b" name="q4" value="b">
-                        <label for="q4b">B) Bactérias terrestres - habitam o solo</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q4c" name="q4" value="c">
-                        <label for="q4c">C) Bactérias dulcícolas - habitam a água salgada</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q4d" name="q4" value="d">
-                        <label for="q4d">D) Bactérias marinhas - habitam a água salgada</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q4e" name="q4" value="e">
-                        <label for="q4e">E) Bactérias extremófilas - habitam ambientes extremos</label>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Questão 5 -->
-            <div class="question">
-                <div class="question-number">Questão 5</div>
-                <div class="question-text">
-                    <p>Analise a imagem que representa a classificação das bactérias pela forma de nutrição:</p>
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmV4-9brJVNzpT5Dfwn6yTGj-BO1GJTAzcu_WMeOWOG9iptuuT3evkrVd_YsR_zYRGoiZUA80ro3AirJOIUvJSgvCxNlIuefxll-3Mcogu-RQbGBgYNpCzHCD4JH0WDpwlCv9E3D4eX_g0T1Uy-ktBz3bFS2BuRWuIP2K6ybNyAOSeslx6zWK_htU0woun/s922/Capturar.JPG" class="question-image">
-                    <p>Com base na imagem e nos conhecimentos sobre classificação nutricional das bactérias, assinale a alternativa CORRETA:</p>
-                </div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q5a" name="q5" value="a">
-                        <label for="q5a">A) Bactérias autotróficas produzem seu próprio alimento por meio de fotossíntese ou quimiossíntese</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q5b" name="q5" value="b">
-                        <label for="q5b">B) Bactérias heterotróficas produzem seu próprio alimento por meio de fotossíntese</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q5c" name="q5" value="c">
-                        <label for="q5c">C) Bactérias autotróficas dependem do meio e/ou de outros organismos para obter alimento</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q5d" name="q5" value="d">
-                        <label for="q5d">D) Bactérias heterotróficas realizam apenas quimiossíntese para obter alimento</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q5e" name="q5" value="e">
-                        <label for="q5e">E) Todas as bactérias são autotróficas</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q3a" name="q3" value="a">
+                            <label for="q3a">A) 1, 2, 3, 4</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3b" name="q3" value="b">
+                            <label for="q3b">B) 1, 3, 2, 4</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3c" name="q3" value="c">
+                            <label for="q3c">C) 2, 1, 4, 3</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3d" name="q3" value="d">
+                            <label for="q3d">D) 3, 2, 1, 4</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3e" name="q3" value="e">
+                            <label for="q3e">E) 4, 3, 2, 1</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Questão 6 -->
-            <div class="question">
-                <div class="question-number">Questão 6</div>
-                <div class="question-text">
-                    <p>As bactérias desempenham diferentes papéis na natureza, conforme sua classificação ecológica. Com base nos conteúdos estudados, analise as seguintes afirmações sobre o papel das bactérias na natureza:</p>
-                    <p>I. Bactérias produtoras realizam fotossíntese e estão na base da cadeia alimentar.</p>
-                    <p>II. Bactérias fixadoras transformam nitrogênio gasoso e inorgânico em nitrogênio orgânico.</p>
-                    <p>III. Bactérias decompositoras auxiliam no retorno da matéria orgânica ao ambiente.</p>
-                    <p>IV. Bactérias parasitas utilizam recursos de outros seres vivos para sobreviver, causando doenças.</p>
-                    <p>Quais afirmações estão corretas?</p>
-                </div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q6a" name="q6" value="a">
-                        <label for="q6a">A) I e II</label>
+                
+                <!-- Questão 4 -->
+                <div class="question">
+                    <div class="question-number">Questão 4</div>
+                    <div class="question-text">
+                        <p>Observe a imagem que representa bactérias em diferentes habitats:</p>
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqdi1mYJhtqiq9GxRqxpB3YoLkcjpPwt17jFazf2xSiatPmqVPaHgYBr6GrmzvwDed7UdS29ia5iSfTdiL38Puv7QX5nveCzbQ4Wh1DGItxTQJQw-9PbInjE_uhWhtTKn64aEuVJa4mozMGUSBQQCuLESW5BiaQsWxaRV7H3DE1zNZYGJf9zq83iKtNBOg/s488/Capturar.JPG" class="question-image">
+                        <p>Com base na imagem e nos conhecimentos sobre classificação das bactérias por habitat, assinale a alternativa que apresenta a classificação <strong>INCORRETA</strong>:</p>
                     </div>
-                    <div class="option">
-                        <input type="radio" id="q6b" name="q6" value="b">
-                        <label for="q6b">B) I, II e III</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q6c" name="q6" value="c">
-                        <label for="q6c">C) II, III e IV</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q6d" name="q6" value="d">
-                        <label for="q6d">D) I, II, III e IV</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q6e" name="q6" value="e">
-                        <label for="q6e">E) III e IV</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q4a" name="q4" value="a">
+                            <label for="q4a">A) Bactérias aéreas - habitam o ar</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4b" name="q4" value="b">
+                            <label for="q4b">B) Bactérias terrestres - habitam o solo</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4c" name="q4" value="c">
+                            <label for="q4c">C) Bactérias dulcícolas - habitam a água salgada</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4d" name="q4" value="d">
+                            <label for="q4d">D) Bactérias marinhas - habitam a água salgada</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4e" name="q4" value="e">
+                            <label for="q4e">E) Bactérias extremófilas - habitam ambientes extremos</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Questão 7 -->
-            <div class="question">
-                <div class="question-number">Questão 7</div>
-                <div class="question-text">
-                    <p>Observe a imagem que representa o processo de reprodução bacteriana por bipartição:</p>
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIoZyaBPweYzg0pu3tv7WejNO38rSavJVTOMgRoy2CjypfkAFgvEBQpNniIudHcodfgkYkkhS9vc2lzekyalR64sJ60NbXYtuUfnSKFgh5oeSLCjc-KoMoLMgYREXsCcBEpIr12E3wyXeqUYVzogIRReNt_qhcpB9VfIT3EV4QKNeyFLcnsZqSK-W4CO4f/s320/Capturar.JPG" class="question-image">
-                    <p>Com base na imagem e nos conhecimentos sobre reprodução bacteriana, assinale a alternativa <strong>CORRETA:</strong></p>
-                </div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q7a" name="q7" value="a">
-                        <label for="q7a">A) A reprodução por bipartição é um processo sexuado que envolve troca de material genético</label>
+                
+                <!-- Questão 5 -->
+                <div class="question">
+                    <div class="question-number">Questão 5</div>
+                    <div class="question-text">
+                        <p>Analise a imagem que representa a classificação das bactérias pela forma de nutrição:</p>
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmV4-9brJVNzpT5Dfwn6yTGj-BO1GJTAzcu_WMeOWOG9iptuuT3evkrVd_YsR_zYRGoiZUA80ro3AirJOIUvJSgvCxNlIuefxll-3Mcogu-RQbGBgYNpCzHCD4JH0WDpwlCv9E3D4eX_g0T1Uy-ktBz3bFS2BuRWuIP2K6ybNyAOSeslx6zWK_htU0woun/s922/Capturar.JPG" class="question-image">
+                        <p>Com base na imagem e nos conhecimentos sobre classificação nutricional das bactérias, assinale a alternativa CORRETA:</p>
                     </div>
-                    <div class="option">
-                        <input type="radio" id="q7b" name="q7" value="b">
-                        <label for="q7b">B) Na bipartição, a célula bacteriana triplica seu cromossomo antes de se dividir</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q7c" name="q7" value="c">
-                        <label for="q7c">C) A reprodução por bipartição gera duas novas bactérias geneticamente idênticas à original</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q7d" name="q7" value="d">
-                        <label for="q7d">D) A variabilidade genética nas bactérias ocorre apenas por meio de mutações durante a bipartição</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q7e" name="q7" value="e">
-                        <label for="q7e">E) A bipartição é um processo de reprodução que envolve a formação de esporos</label>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Questão 8 -->
-            <div class="question">
-                <div class="question-number">Questão 8</div>
-                <div class="question-text">
-                    <p>Analise a imagem que representa métodos de eliminação de bactérias:</p>
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLbWbG_Kw6mfpi5RY_ZlrlCIm3QBDeYmIUh2kbkOwLwDslVaR1WvzxwPCc3IYYc8-IOSpkF1eV6BGM_AQUh6YG_7ol1JbH-_i3VavJbSpy5HdJOtWx2c_Tcl_l3iNqkMAFDW5UmvGYukKrsj3n1ZY3W_kVEVobMf2lZVkMGPTRF9RLmf0i_HE0bDxqMHAO/s500/80cbf719-30d5-467b-480e-3c181569eb2e.png" class="question-image">
-                    <p>Com base na imagem e nos conhecimentos sobre métodos de eliminação de bactérias, assinale a alternativa que apresenta a relação <strong>CORRETA</strong> entre o método e sua descrição:</p>
-                </div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q8a" name="q8" value="a">
-                        <label for="q8a">A) Esterilização - uso de álcool 70% para eliminar a maior parte das bactérias</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q8b" name="q8" value="b">
-                        <label for="q8b">B) Desinfecção - uso do calor ou radiação ionizante para destruir todas as bactérias</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q8c" name="q8" value="c">
-                        <label for="q8c">C) Esterilização - uso do calor ou radiação ionizante para destruir todas as bactérias</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q8d" name="q8" value="d">
-                        <label for="q8d">D) Desinfecção - uso de antibióticos para eliminar bactérias patogênicas</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q8e" name="q8" value="e">
-                        <label for="q8e">E) Esterilização - uso de água sanitária para eliminar bactérias patogênicas</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q5a" name="q5" value="a">
+                            <label for="q5a">A) Bactérias autotróficas produzem seu próprio alimento por meio de fotossíntese ou quimiossíntese</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q5b" name="q5" value="b">
+                            <label for="q5b">B) Bactérias heterotróficas produzem seu próprio alimento por meio de fotossíntese</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q5c" name="q5" value="c">
+                            <label for="q5c">C) Bactérias autotróficas dependem do meio e/ou de outros organismos para obter alimento</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q5d" name="q5" value="d">
+                            <label for="q5d">D) Bactérias heterotróficas realizam apenas quimiossíntese para obter alimento</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q5e" name="q5" value="e">
+                            <label for="q5e">E) Todas as bactérias são autotróficas</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Questão 9 -->
-            <div class="question">
-                <div class="question-number">Questão 9</div>
-                <div class="question-text">
-                    <p>Com base no experimento sobre crescimento bacteriano apresentado no material de estudo, analise as seguintes situações:</p>
-                    <p>Em um experimento com três tubos de ensaio contendo meio de cultura, foram observados os seguintes resultados após alguns dias:</p>
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhWBi2_kz-YyA4f3hkYFgrFRKtx5V7Fd51-nIBetID_X3F96gEdyLxKaC_PZ_7JS9PrMFv9JAVqvNwEze15ipmUvstdih3CviMWdag4qvjBPykykhe5bu5k3qdRg6zHZedxXkkBKXE1UR5TThn1MkoMtYvAQiT_VkBjnxisOuO7MgXggq4EIf1RVoueCJNc/s550/Capturar.png" class="question-image">
-                    <p><strong>- Tubo 1:</strong> crescimento bacteriano apenas na porção superior do meio de cultura</p>
-                    <p><strong>- Tubo 2:</strong> crescimento bacteriano apenas na parte inferior do meio de cultura</p>
-                    <p><strong>- Tubo 3:</strong> crescimento bacteriano em todo o meio de cultura</p>
-                    <p>Com base nesses resultados e nos conhecimentos sobre classificação metabólica das bactérias, é <strong>CORRETO</strong> afirmar que:</p>
-                </div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q9a" name="q9" value="a">
-                        <label for="q9a">A) As bactérias do tubo 1 são anaeróbias obrigatórias</label>
+                
+                <!-- Questão 6 -->
+                <div class="question">
+                    <div class="question-number">Questão 6</div>
+                    <div class="question-text">
+                        <p>As bactérias desempenham diferentes papéis na natureza, conforme sua classificação ecológica. Com base nos conteúdos estudados, analise as seguintes afirmações sobre o papel das bactérias na natureza:</p>
+                        <p>I. Bactérias produtoras realizam fotossíntese e estão na base da cadeia alimentar.</p>
+                        <p>II. Bactérias fixadoras transformam nitrogênio gasoso e inorgânico em nitrogênio orgânico.</p>
+                        <p>III. Bactérias decompositoras auxiliam no retorno da matéria orgânica ao ambiente.</p>
+                        <p>IV. Bactérias parasitas utilizam recursos de outros seres vivos para sobreviver, causando doenças.</p>
+                        <p>Quais afirmações estão corretas?</p>
                     </div>
-                    <div class="option">
-                        <input type="radio" id="q9b" name="q9" value="b">
-                        <label for="q9b">B) As bactérias do tubo 2 são aeróbias</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q9c" name="q9" value="c">
-                        <label for="q9c">C) As bactérias do tubo 3 são anaeróbias facultativas</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q9d" name="q9" value="d">
-                        <label for="q9d">D) As bactérias do tubo 1 são microaerófilas</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q9e" name="q9" value="e">
-                        <label for="q9e">E) As bactérias do tubo 2 são anaeróbias facultativas</label>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Questão 10 -->
-            <div class="question">
-                <div class="question-number">Questão 10</div>
-                <div class="question-text">
-                    <p>Observe a imagem que representa a ação de antibióticos sobre bactérias:</p>
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiR8IyarBoJtGx2tLbbzt7yP7skZbTH3nmqC37BMthWkYznDElBYDsvJEr57UCMd9vBDODFLFgxMgFXauj5xzj9XW51tDhf8lRN0_xEBSDyGq7_ctUkCxnRrbZwHh_vMX51FwQ_LYBmL9vUkUMQ8My9hMWmTib-lizGKhgI7ccSvPPxYY2rndkmeAXYY79m/s600/Capturar.JPG" class="question-image">
-                    <p>Com base na imagem e nos conhecimentos sobre o uso de antibióticos, analise as seguintes afirmações:</p>
-                    <p>I. Os antibióticos atuam especificamente sobre o metabolismo das bactérias.</p>
-                    <p>II. Antibióticos podem ser utilizados para tratar infecções causadas por vírus.</p>
-                    <p>III. O uso inadequado de antibióticos pode levar ao desenvolvimento de bactérias resistentes.</p>
-                    <p>IV. Antibióticos só devem ser utilizados mediante prescrição médica.</p>
-                    <p>Quais afirmações estão corretas?</p>
-                </div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q10a" name="q10" value="a">
-                        <label for="q10a">A) I, II e III</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q10b" name="q10" value="b">
-                        <label for="q10b">B) I, III e IV</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q10c" name="q10" value="c">
-                        <label for="q10c">C) II, III e IV</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q10d" name="q10" value="d">
-                        <label for="q10d">D) I, II e IV</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q10e" name="q10" value="e">
-                        <label for="q10e">E) II e IV</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q6a" name="q6" value="a">
+                            <label for="q6a">A) I e II</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6b" name="q6" value="b">
+                            <label for="q6b">B) I, II e III</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6c" name="q6" value="c">
+                            <label for="q6c">C) II, III e IV</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6d" name="q6" value="d">
+                            <label for="q6d">D) I, II, III e IV</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6e" name="q6" value="e">
+                            <label for="q6e">E) III e IV</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="buttons">
-                <button type="button" id="submit-btn">Enviar Respostas</button>
-                <button type="button" id="clear-btn">Limpar Respostas</button>
-            </div>
-            
-            <div id="result-message" class="result"></div>
-        </form>
+                
+                <!-- Questão 7 -->
+                <div class="question">
+                    <div class="question-number">Questão 7</div>
+                    <div class="question-text">
+                        <p>Observe a imagem que representa o processo de reprodução bacteriana por bipartição:</p>
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIoZyaBPweYzg0pu3tv7WejNO38rSavJVTOMgRoy2CjypfkAFgvEBQpNniIudHcodfgkYkkhS9vc2lzekyalR64sJ60NbXYtuUfnSKFgh5oeSLCjc-KoMoLMgYREXsCcBEpIr12E3wyXeqUYVzogIRReNt_qhcpB9VfIT3EV4QKNeyFLcnsZqSK-W4CO4f/s320/Capturar.JPG" class="question-image">
+                        <p>Com base na imagem e nos conhecimentos sobre reprodução bacteriana, assinale a alternativa <strong>CORRETA:</strong></p>
+                    </div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q7a" name="q7" value="a">
+                            <label for="q7a">A) A reprodução por bipartição é um processo sexuado que envolve troca de material genético</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7b" name="q7" value="b">
+                            <label for="q7b">B) Na bipartição, a célula bacteriana triplica seu cromossomo antes de se dividir</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7c" name="q7" value="c">
+                            <label for="q7c">C) A reprodução por bipartição gera duas novas bactérias geneticamente idênticas à original</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7d" name="q7" value="d">
+                            <label for="q7d">D) A variabilidade genética nas bactérias ocorre apenas por meio de mutações durante a bipartição</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7e" name="q7" value="e">
+                            <label for="q7e">E) A bipartição é um processo de reprodução que envolve a formação de esporos</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questão 8 -->
+                <div class="question">
+                    <div class="question-number">Questão 8</div>
+                    <div class="question-text">
+                        <p>Analise a imagem que representa métodos de eliminação de bactérias:</p>
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLbWbG_Kw6mfpi5RY_ZlrlCIm3QBDeYmIUh2kbkOwLwDslVaR1WvzxwPCc3IYYc8-IOSpkF1eV6BGM_AQUh6YG_7ol1JbH-_i3VavJbSpy5HdJOtWx2c_Tcl_l3iNqkMAFDW5UmvGYukKrsj3n1ZY3W_kVEVobMf2lZVkMGPTRF9RLmf0i_HE0bDxqMHAO/s500/80cbf719-30d5-467b-480e-3c181569eb2e.png" class="question-image">
+                        <p>Com base na imagem e nos conhecimentos sobre métodos de eliminação de bactérias, assinale a alternativa que apresenta a relação <strong>CORRETA</strong> entre o método e sua descrição:</p>
+                    </div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q8a" name="q8" value="a">
+                            <label for="q8a">A) Esterilização - uso de álcool 70% para eliminar a maior parte das bactérias</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8b" name="q8" value="b">
+                            <label for="q8b">B) Desinfecção - uso do calor ou radiação ionizante para destruir todas as bactérias</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8c" name="q8" value="c">
+                            <label for="q8c">C) Esterilização - uso do calor ou radiação ionizante para destruir todas as bactérias</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8d" name="q8" value="d">
+                            <label for="q8d">D) Desinfecção - uso de antibióticos para eliminar bactérias patogênicas</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8e" name="q8" value="e">
+                            <label for="q8e">E) Esterilização - uso de água sanitária para eliminar bactérias patogênicas</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questão 9 -->
+                <div class="question">
+                    <div class="question-number">Questão 9</div>
+                    <div class="question-text">
+                        <p>Com base no experimento sobre crescimento bacteriano apresentado no material de estudo, analise as seguintes situações:</p>
+                        <p>Em um experimento com três tubos de ensaio contendo meio de cultura, foram observados os seguintes resultados após alguns dias:</p>
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhWBi2_kz-YyA4f3hkYFgrFRKtx5V7Fd51-nIBetID_X3F96gEdyLxKaC_PZ_7JS9PrMFv9JAVqvNwEze15ipmUvstdih3CviMWdag4qvjBPykykhe5bu5k3qdRg6zHZedxXkkBKXE1UR5TThn1MkoMtYvAQiT_VkBjnxisOuO7MgXggq4EIf1RVoueCJNc/s550/Capturar.png" class="question-image">
+                        <p><strong>- Tubo 1:</strong> crescimento bacteriano apenas na porção superior do meio de cultura</p>
+                        <p><strong>- Tubo 2:</strong> crescimento bacteriano apenas na parte inferior do meio de cultura</p>
+                        <p><strong>- Tubo 3:</strong> crescimento bacteriano em todo o meio de cultura</p>
+                        <p>Com base nesses resultados e nos conhecimentos sobre classificação metabólica das bactérias, é <strong>CORRETO</strong> afirmar que:</p>
+                    </div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q9a" name="q9" value="a">
+                            <label for="q9a">A) As bactérias do tubo 1 são anaeróbias obrigatórias</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9b" name="q9" value="b">
+                            <label for="q9b">B) As bactérias do tubo 2 são aeróbias</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9c" name="q9" value="c">
+                            <label for="q9c">C) As bactérias do tubo 3 são anaeróbias facultativas</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9d" name="q9" value="d">
+                            <label for="q9d">D) As bactérias do tubo 1 são microaerófilas</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9e" name="q9" value="e">
+                            <label for="q9e">E) As bactérias do tubo 2 são anaeróbias facultativas</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questão 10 -->
+                <div class="question">
+                    <div class="question-number">Questão 10</div>
+                    <div class="question-text">
+                        <p>Observe a imagem que representa a ação de antibióticos sobre bactérias:</p>
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiR8IyarBoJtGx2tLbbzt7yP7skZbTH3nmqC37BMthWkYznDElBYDsvJEr57UCMd9vBDODFLFgxMgFXauj5xzj9XW51tDhf8lRN0_xEBSDyGq7_ctUkCxnRrbZwHh_vMX51FwQ_LYBmL9vUkUMQ8My9hMWmTib-lizGKhgI7ccSvPPxYY2rndkmeAXYY79m/s600/Capturar.JPG" class="question-image">
+                        <p>Com base na imagem e nos conhecimentos sobre o uso de antibióticos, analise as seguintes afirmações:</p>
+                        <p>I. Os antibióticos atuam especificamente sobre o metabolismo das bactérias.</p>
+                        <p>II. Antibióticos podem ser utilizados para tratar infecções causadas por vírus.</p>
+                        <p>III. O uso inadequado de antibióticos pode levar ao desenvolvimento de bactérias resistentes.</p>
+                        <p>IV. Antibióticos só devem ser utilizados mediante prescrição médica.</p>
+                        <p>Quais afirmações estão corretas?</p>
+                    </div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q10a" name="q10" value="a">
+                            <label for="q10a">A) I, II e III</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q10b" name="q10" value="b">
+                            <label for="q10b">B) I, III e IV</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q10c" name="q10" value="c">
+                            <label for="q10c">C) II, III e IV</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q10d" name="q10" value="d">
+                            <label for="q10d">D) I, II e IV</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q10e" name="q10" value="e">
+                            <label for="q10e">E) II e IV</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="buttons">
+                    <button type="button" id="submit-btn">Enviar Respostas</button>
+                    <button type="button" id="clear-btn">Limpar Respostas</button>
+                </div>
+                
+                <div id="result-message" class="result"></div>
+            </form>
+        </div>
     </div>
 
 <script>
@@ -884,5 +899,3 @@ document.addEventListener("DOMContentLoaded", initializePage);
 
 </body>
 </html>
-
-
