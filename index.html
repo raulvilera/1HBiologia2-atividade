@@ -654,239 +654,218 @@
     <script>
        // Conteúdo do seu arquivo JavaScript (pasted_content_3.txt) com a função sendToGoogleSheets corrigida.
 
-// Dados dos alunos (mantidos)
+<script>
+// ======================================================
+// LISTA DE ALUNOS
+// ======================================================
 const students = [
-    { number: "1", name: "ALEXANDRE BATISTA DOS SANTOS" },
-    { number: "5", name: "ANA LÍVIA BRAGA DOS SANTOS" },
-    { number: "11", name: "DANIELLE OLIVEIRA DA SILVA NUNES" },
-    { number: "14", name: "ELOYSA ANDRADE OLIVEIRA SILVA" },
-    { number: "18", name: "FELIPE MARCONDES SILVA" },
-    { number: "19", name: "GEOVANA FERREIRA DA SILVA SOUZA" },
-    { number: "20", name: "GEOVANNA GABRIELA PIERRE SILVA" },
-    { number: "24", name: "ISAAK ALVAREZ MARQUEZ CAETANO" },
-    { number: "33", name: "KEMILLY VITORIA RODRIGUES MARIANO" },
-    { number: "34", name: "LAURA LUIZA DOS SANTOS ALMEIDA" },
-    { number: "37", name: "MARIA EDUARDA VENCESLAU DE SOUZA" },
-    { number: "38", name: "MATHEUS CAVALCANTE LISBOA" },
-    { number: "40", name: "MURILLO SOUZA RODRIGUES DOS SANTOS" },
-    { number: "45", name: "PEDRO HENRIQUE MAURICIO DA SILVA CHAGAS" },
-    { number: "48", name: "RHUAN LIMA OLIVEIRA" },
-    { number: "49", name: "THAINA FIDELIS XAVIER DA SILVA" },
-    { number: "54", "name": "DENIS CASTRO DURVALDO" },
-    { number: "56", "name": "ISAAC LEMOS SANTOS" },
-    { number: "57", "name": "EMILLY EDUARDA BONIFACIO DE AMORIM CORREA" },
-    { number: "59", "name": "LEONARDO ABADE DA SILVA DANTAS" },
-    { number: "62", "name": "PYETRA GOMES MARTINS" },
-    { number: "64", "name": "CARLOS EDUARDO MARTINS DA SILVA" },
-    { number: "66", "name": "STELLA MARTINS DA SILVA" },
-    { number: "67", "name": "DYESSICA MAYARA DOS SANTOS GOMES" },
-    { number: "68", "name": "LARISSA DE LOURDES DOS SANTOS" },
-    { number: "70", "name": "GUSTAVO RODRIGUES DE SOUZA" },
-    { number: "72", "name": "NAYARA BARROS DE MORAIS" },
-    { number: "73", "name": "VITÓRIA SANTOS TEIXEIRA" },
-    { number: "75", "name": "JOÃO PAULO RODRIGUES DE SOUZA FILHO" },
-    { number: "76", "name": "MARIA EDUARDA DE OLIVEIRA RODRIGUES" },
-    { number: "77", "name": "LUIZ HENRIQUE JESUS DOS SANTOS FABRICIO" },
-    { number: "78", "name": "EDUARDO CARRASCOSA PINTOR" },
-    { number: "79", "name": "GUILHERME DANIEL VELOSO DOS SANTOS" },
-    { number: "80", "name": "JOAO GABRIEL AMORIM TOBIAS" },
-    { number: "81", "name": "RIAN SANTOS MACHADO" },
-    { number: "82", "name": "JULIA ARAUJO DE LIMA" },
-    { number: "83", "name": "BRENDA ROSA DA SILVA" },
-    { number: "84", "name": "CAMILA APPOLINÁRIO" },
-    { number: "85", "name": "ARTHUR CASTRO SILVA" },
-    { number: "86", "name": "KAMILA NEVES BRITO" }
+  { number: "1", name: "ALEXANDRE BATISTA DOS SANTOS" },
+  { number: "5", name: "ANA LÍVIA BRAGA DOS SANTOS" },
+  { number: "11", name: "DANIELLE OLIVEIRA DA SILVA NUNES" },
+  { number: "14", name: "ELOYSA ANDRADE OLIVEIRA SILVA" },
+  { number: "18", name: "FELIPE MARCONDES SILVA" },
+  { number: "19", name: "GEOVANA FERREIRA DA SILVA SOUZA" },
+  { number: "20", name: "GEOVANNA GABRIELA PIERRE SILVA" },
+  { number: "24", name: "ISAAK ALVAREZ MARQUEZ CAETANO" },
+  { number: "33", name: "KEMILLY VITORIA RODRIGUES MARIANO" },
+  { number: "34", name: "LAURA LUIZA DOS SANTOS ALMEIDA" },
+  { number: "37", name: "MARIA EDUARDA VENCESLAU DE SOUZA" },
+  { number: "38", name: "MATHEUS CAVALCANTE LISBOA" },
+  { number: "40", name: "MURILLO SOUZA RODRIGUES DOS SANTOS" },
+  { number: "45", name: "PEDRO HENRIQUE MAURICIO DA SILVA CHAGAS" },
+  { number: "48", name: "RHUAN LIMA OLIVEIRA" },
+  { number: "49", name: "THAINA FIDELIS XAVIER DA SILVA" },
+  { number: "54", name: "DENIS CASTRO DURVALDO" },
+  { number: "56", name: "ISAAC LEMOS SANTOS" },
+  { number: "57", name: "EMILLY EDUARDA BONIFACIO DE AMORIM CORREA" },
+  { number: "59", name: "LEONARDO ABADE DA SILVA DANTAS" },
+  { number: "62", name: "PYETRA GOMES MARTINS" },
+  { number: "64", name: "CARLOS EDUARDO MARTINS DA SILVA" },
+  { number: "66", name: "STELLA MARTINS DA SILVA" },
+  { number: "67", name: "DYESSICA MAYARA DOS SANTOS GOMES" },
+  { number: "68", name: "LARISSA DE LOURDES DOS SANTOS" },
+  { number: "70", name: "GUSTAVO RODRIGUES DE SOUZA" },
+  { number: "72", name: "NAYARA BARROS DE MORAIS" },
+  { number: "73", name: "VITÓRIA SANTOS TEIXEIRA" },
+  { number: "75", name: "JOÃO PAULO RODRIGUES DE SOUZA FILHO" },
+  { number: "76", name: "MARIA EDUARDA DE OLIVEIRA RODRIGUES" },
+  { number: "77", name: "LUIZ HENRIQUE JESUS DOS SANTOS FABRICIO" },
+  { number: "78", name: "EDUARDO CARRASCOSA PINTOR" },
+  { number: "79", name: "GUILHERME DANIEL VELOSO DOS SANTOS" },
+  { number: "80", name: "JOAO GABRIEL AMORIM TOBIAS" },
+  { number: "81", name: "RIAN SANTOS MACHADO" },
+  { number: "82", name: "JULIA ARAUJO DE LIMA" },
+  { number: "83", name: "BRENDA ROSA DA SILVA" },
+  { number: "84", name: "CAMILA APPOLINÁRIO" },
+  { number: "85", name: "ARTHUR CASTRO SILVA" },
+  { number: "86", name: "KAMILA NEVES BRITO" }
 ];
 
-// Gabarito (oculto)
+// ======================================================
+// GABARITO (oculto)
+// ======================================================
 const correctAnswers = {
-    q1: "b",
-    q2: "b",
-    q3: "a",
-    q4: "c",
-    q5: "a",
-    q6: "d",
-    q7: "c",
-    q8: "c",
-    q9: "c",
-    q10: "b"
+  q1: "b",
+  q2: "b",
+  q3: "a",
+  q4: "c",
+  q5: "a",
+  q6: "d",
+  q7: "c",
+  q8: "c",
+  q9: "c",
+  q10: "b"
 };
 
-// Variável para controlar se o formulário já foi enviado
+// ======================================================
+// CONTROLE
+// ======================================================
 let submitted = false;
 
-// Inicialização
-document.addEventListener('DOMContentLoaded', function() {
-    // Preencher dropdown de alunos
-    const studentSelect = document.getElementById('student-name');
-    students.forEach((student, index) => {
-        const option = document.createElement('option');
-        option.value = student.number;
-        option.textContent = student.name;
-        option.className = `stripe-${index % 2}`;
-        studentSelect.appendChild(option);
-    });
+// ======================================================
+// INICIALIZAÇÃO DA PÁGINA
+// ======================================================
+document.addEventListener("DOMContentLoaded", () => {
+  const studentSelect = document.getElementById("student-name");
+  const resultMessage = document.getElementById("result-message");
 
-    // Configurar data atual
-    const today = new Date();
-    document.getElementById('activity-date').value = today.toISOString().split('T')[0];
+  // Preenche lista de alunos
+  students.forEach((student, i) => {
+    const option = document.createElement("option");
+    option.value = student.number;
+    option.textContent = student.name;
+    option.className = `stripe-${i % 2}`;
+    studentSelect.appendChild(option);
+  });
 
-    // Event listener para seleção de aluno
-    studentSelect.addEventListener('change', function() {
-        const selectedNumber = this.value;
-        const selectedStudent = students.find(student => student.number === selectedNumber);
-        if (selectedStudent) {
-            document.getElementById('student-number').value = selectedStudent.number;
-        }
-    });
+  // Define a data atual
+  document.getElementById("activity-date").value = new Date().toISOString().split("T")[0];
 
-    // Event listener para botão de limpar
-    document.getElementById('clear-btn').addEventListener('click', function() {
-        if (!submitted) {
-            clearForm();
-        } else {
-            alert('Não é possível limpar as respostas após o envio.');
-        }
-    });
+  // Atualiza número do aluno ao selecionar
+  studentSelect.addEventListener("change", function() {
+    const sel = students.find(s => s.number === this.value);
+    document.getElementById("student-number").value = sel ? sel.number : "";
+  });
 
-    // Event listener para botão de enviar
-    document.getElementById('submit-btn').addEventListener('click', function() {
-        if (submitted) {
-            alert('Você já enviou suas respostas. Apenas um envio é permitido.');
-            return;
-        }
+  // Limpa o formulário
+  document.getElementById("clear-btn").addEventListener("click", () => {
+    if (submitted) {
+      alert("Não é possível limpar após o envio.");
+    } else {
+      clearForm(resultMessage);
+    }
+  });
 
-        if (!validateForm()) {
-            return;
-        }
+  // Envio do formulário
+  document.getElementById("submit-btn").addEventListener("click", async () => {
+    if (submitted) {
+      alert("Você já enviou suas respostas.");
+      return;
+    }
 
-        const score = calculateScore();
-        showResult(score);
-        submitted = true;
-        
-        // **CORREÇÃO:** Chamada da função de envio com os dados corretos
-        const selectedStudentNumber = document.getElementById('student-name').value;
-        const selectedStudent = students.find(student => student.number === selectedStudentNumber);
-        const studentName = selectedStudent ? selectedStudent.name : '';
-        
-        // **IMPORTANTE:** Defina o ID da atividade aqui (1 para T4:T, 2 para V4:V)
-        // Como o anexo não especifica qual atividade é, estou usando 1 como padrão.
-        // VOCÊ DEVE MUDAR ESTE VALOR PARA 2 SE ESTE FORMULÁRIO FOR DA SEGUNDA ATIVIDADE.
-        const activityId = 1; 
-        
-        sendToGoogleSheets(studentName, score, activityId);
-        
-        // Desabilitar o botão após o envio
-        document.getElementById('submit-btn').disabled = true;
-    });
+    if (!validateForm()) return;
+
+    const score = calculateScore();
+    showResult(score, resultMessage);
+
+    const student = students.find(s => s.number === studentSelect.value);
+    if (!student) return alert("Erro: aluno inválido.");
+
+    const activityId = 1; // Mude para 2 se for segunda atividade
+
+    try {
+      await sendToGoogleSheets(student.name, score, activityId);
+      submitted = true;
+      document.getElementById("submit-btn").disabled = true;
+      alert(`Respostas enviadas com sucesso! Nota: ${score}/10`);
+    } catch (err) {
+      console.error("Erro ao enviar:", err);
+      alert("❌ Erro ao enviar as respostas:\n" + err.message);
+    }
+  });
 });
 
-// Função para validar o formulário (mantida)
+// ======================================================
+// FUNÇÕES DE VALIDAÇÃO E CÁLCULO
+// ======================================================
 function validateForm() {
-    const studentName = document.getElementById('student-name').value;
-    const activityDate = document.getElementById('activity-date').value;
+  const name = document.getElementById("student-name").value;
+  const date = document.getElementById("activity-date").value;
 
-    if (!studentName) {
-        alert('Por favor, selecione seu nome na lista.');
+  if (!name) {
+    alert("Selecione seu nome na lista.");
+    return false;
+  }
+  if (!date) {
+    alert("Preencha a data da atividade.");
+    return false;
+  }
+
+  for (let i = 1; i <= 10; i++) {
+    const q = `q${i}`;
+    if (!document.querySelector(`input[name="${q}"]:checked`)) {
+      if (!confirm(`Você não respondeu a questão ${i}. Deseja enviar mesmo assim?`)) {
         return false;
+      }
     }
-
-    if (!activityDate) {
-        alert('Por favor, preencha a data.');
-        return false;
-    }
-
-    // Verificar se todas as questões foram respondidas
-    for (let i = 1; i <= 10; i++) {
-        const questionName = `q${i}`;
-        const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
-        if (!selectedOption) {
-            const confirmSubmit = confirm(`Você não respondeu a questão ${i}. Deseja enviar mesmo assim?`);
-            if (!confirmSubmit) {
-                return false;
-            }
-            // Se o usuário confirmar, continua a iteração
-        }
-    }
-
-    return true;
+  }
+  return true;
 }
 
-// Função para calcular a pontuação (mantida)
 function calculateScore() {
-    let score = 0;
-    for (let i = 1; i <= 10; i++) {
-        const questionName = `q${i}`;
-        const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
-        if (selectedOption && selectedOption.value === correctAnswers[questionName]) {
-            score++;
-        }
-    }
-    return score;
+  let score = 0;
+  for (let i = 1; i <= 10; i++) {
+    const q = `q${i}`;
+    const selected = document.querySelector(`input[name="${q}"]:checked`);
+    if (selected && selected.value === correctAnswers[q]) score++;
+  }
+  return score;
 }
 
-// Função para mostrar o resultado (mantida)
-function showResult(score) {
-    const resultMessage = document.getElementById('result-message');
-    const percentage = (score / 10) * 100;
-    
-    resultMessage.textContent = `Sua pontuação: ${score}/10 (${percentage}%)`;
-    resultMessage.className = 'result ' + (percentage >= 70 ? 'success' : 'error');
-    resultMessage.style.display = 'block';
-    
-    // Rolagem suave para o resultado
-    resultMessage.scrollIntoView({ behavior: 'smooth' });
+function showResult(score, container) {
+  const pct = (score / 10) * 100;
+  container.textContent = `Sua pontuação: ${score}/10 (${pct.toFixed(0)}%)`;
+  container.className = "result " + (pct >= 70 ? "success" : "error");
+  container.style.display = "block";
+  container.scrollIntoView({ behavior: "smooth" });
 }
 
-// Função para limpar o formulário (mantida)
-function clearForm() {
-    document.querySelectorAll('input[type="radio"]').forEach(radio => {
-        radio.checked = false;
-    });
-    document.getElementById('result-message').style.display = 'none';
+function clearForm(container) {
+  document.querySelectorAll('input[type="radio"]').forEach(r => (r.checked = false));
+  container.style.display = "none";
 }
 
-/**
- * Função para enviar os dados da atividade para o Google Sheets via Web App.
- * @param {string} studentName - Nome completo do aluno.
- * @param {number} score - Nota final da atividade (0-10).
- * @param {number} activityId - ID da atividade (1 para Coluna T, 2 para Coluna V).
- */
-function sendToGoogleSheets(studentName, score, activityId) {
-    // **IMPORTANTE:** Substitua esta URL pela URL do seu Web App do Google Apps Script
-    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwTYjpl0g7-Ykf-T6kfS1Kw6nQwibAkU8L1WnaayB2cfio7WsUCGC1o1qjHK15tM7nP/exec'; 
-    
-    const data = {
-        studentName: studentName,
-        score: score,
-        activity: activityId // 1 para T4:T, 2 para V4:V
-    };
+// ======================================================
+// ENVIO AO GOOGLE SHEETS
+// ======================================================
+async function sendToGoogleSheets(studentName, score, activityId) {
+  const scriptUrl = "https://script.google.com/macros/s/AKfycbwTYjpl0g7-Ykf-T6kfS1Kw6nQwibAkU8L1WnaayB2cfio7WsUCGC1o1qjHK15tM7nP/exec";
+  const payload = { studentName, score, activity: activityId };
 
-    // O uso de 'mode: "no-cors"' é necessário para evitar problemas de CORS com Web Apps
-    // do Apps Script, mas torna a resposta opaca.
-    
-    fetch(scriptUrl, {
-        method: 'POST',
-        mode: 'no-cors', 
-        cache: 'no-cache',
-        headers: {
-            'Content-Type': 'application/json', 
-        },
-        body: JSON.stringify(data)
-    })
-    .then(() => {
-        // O sucesso é assumido aqui, pois o 'no-cors' impede a leitura da resposta do Apps Script.
-        alert(`Respostas enviadas com sucesso! Sua nota: ${score}/10`);
-    })
-    .catch(error => {
-        // Este catch só pega erros de rede.
-        console.error('Erro de rede ao enviar respostas:', error);
-        alert('Erro ao enviar respostas. Verifique sua conexão e tente novamente.');
-    });
+  const response = await fetch(scriptUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  // Tratamento de erros de rede e servidor
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Erro HTTP ${response.status}: ${text}`);
+  }
+
+  const result = await response.json().catch(() => null);
+  if (!result || !result.success) {
+    throw new Error(result?.message || "Falha no servidor do Google Apps Script.");
+  }
+
+  return true;
 }
-    </script>
+</script>
+
 </body>
 </html>
+
 
 
 
