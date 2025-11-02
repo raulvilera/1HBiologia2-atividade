@@ -839,7 +839,7 @@ function clearForm(container) {
 // ENVIO AO GOOGLE SHEETS
 // ======================================================
 async function sendToGoogleSheets(studentName, score, activityId) {
-  const scriptUrl = "https://script.google.com/macros/s/AKfycbwTYjpl0g7-Ykf-T6kfS1Kw6nQwibAkU8L1WnaayB2cfio7WsUCGC1o1qjHK15tM7nP/exec";
+  const scriptUrl = "https://script.google.com/macros/s/AKfycbwJRoj_nBTFDIjUc5rGqJ0xHNOcnGSnIDlfDPLgarDng3VVaEx3WCUyQC-EOv7pknA5/exec";
   const payload = { studentName, score, activity: activityId };
 
   const response = await fetch(scriptUrl, {
@@ -865,6 +865,7 @@ async function sendToGoogleSheets(studentName, score, activityId) {
 
 </body>
 </html>
+
 
 
 
