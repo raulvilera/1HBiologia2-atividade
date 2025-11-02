@@ -667,6 +667,7 @@
     </div>
 
 <script>
+// === LISTA DE ALUNOS ===
 const students = [
   { number: "1", name: "ALEXANDRE BATISTA DOS SANTOS" },
   { number: "5", name: "ANA LÍVIA BRAGA DOS SANTOS" },
@@ -710,6 +711,7 @@ const students = [
   { number: "86", name: "KAMILA NEVES BRITO" }
 ];
 
+// === GABARITO ===
 const correctAnswers = {
   q1: "b", q2: "b", q3: "a", q4: "c", q5: "a",
   q6: "d", q7: "c", q8: "c", q9: "c", q10: "b"
@@ -717,120 +719,100 @@ const correctAnswers = {
 
 let submitted = false;
 
-// Função para inicializar a página
-function initializePage() {
-  try {
-    const studentSelect = document.getElementById("student-name");
-    const resultMessage = document.getElementById("result-message");
-    const clearBtn = document.getElementById("clear-btn");
-    const submitBtn = document.getElementById("submit-btn");
-    const dateInput = document.getElementById("activity-date");
+// === INICIALIZAÇÃO ===
+document.addEventListener("DOMContentLoaded", () => {
+  const studentSelect = document.getElementById("student-name");
+  const resultMessage = document.getElementById("result-message");
+  const clearBtn = document.getElementById("clear-btn");
+  const submitBtn = document.getElementById("submit-btn");
+  const dateInput = document.getElementById("activity-date");
 
-    if (!studentSelect) {
-      throw new Error("Elemento 'student-name' não encontrado no DOM.");
-    }
+  // Preencher dropdown de alunos
+  populateStudentDropdown(studentSelect);
 
-    // Preenche o dropdown com os alunos
-    populateStudentDropdown(studentSelect);
-
-    // Define a data atual
-    if (dateInput) {
-      dateInput.value = new Date().toISOString().split("T")[0];
-    }
-
-    // Atualiza número ao escolher nome
-    studentSelect.addEventListener("change", function(e) {
-      const selectedStudent = students.find(student => student.number === e.target.value);
-      const studentNumberField = document.getElementById("student-number");
-      if (studentNumberField) {
-        studentNumberField.value = selectedStudent ? selectedStudent.number : "";
-      }
-    });
-
-    // Botão limpar
-    if (clearBtn) {
-      clearBtn.addEventListener("click", function() {
-        if (submitted) {
-          alert("Não é possível limpar após envio.");
-          return;
-        }
-        clearForm(resultMessage);
-      });
-    }
-
-    // Botão enviar
-    if (submitBtn) {
-      submitBtn.addEventListener("click", async function() {
-        if (submitted) {
-          alert("Você já enviou suas respostas.");
-          return;
-        }
-
-        if (!validateForm()) {
-          return;
-        }
-
-        const score = calculateScore();
-        showResult(score, resultMessage);
-
-        const studentSelect = document.getElementById("student-name");
-        const student = students.find(s => s.number === studentSelect.value);
-        if (!student) {
-          alert("Erro: aluno não encontrado.");
-          return;
-        }
-
-        const activityId = 1; // mude para 2 se for outra atividade
-
-        try {
-          await sendToGoogleSheets(student.name, score, activityId);
-          submitted = true;
-          submitBtn.disabled = true;
-          alert(`Respostas enviadas com sucesso! Nota: ${score}/10`);
-        } catch (err) {
-          console.error(err);
-          alert("Erro ao enviar respostas: " + err.message);
-        }
-      });
-    }
-  } catch (error) {
-    console.error("Erro na inicialização:", error);
-    alert("Erro ao carregar o formulário. Recarregue a página.");
+  // Define a data atual
+  if (dateInput) {
+    dateInput.value = new Date().toISOString().split("T")[0];
   }
-}
 
-// Função para preencher o dropdown de alunos
+  // Atualiza número ao escolher nome
+  studentSelect.addEventListener("change", e => {
+    const student = students.find(s => s.number === e.target.value);
+    const numberField = document.getElementById("student-number");
+    if (numberField) numberField.value = student ? student.number : "";
+  });
+
+  // Botão limpar
+  clearBtn?.addEventListener("click", () => {
+    if (submitted) {
+      alert("Não é possível limpar após envio.");
+      return;
+    }
+    clearForm(resultMessage);
+  });
+
+  // Botão enviar
+  submitBtn?.addEventListener("click", async () => {
+    if (submitted) {
+      alert("Você já enviou suas respostas.");
+      return;
+    }
+
+    if (!validateForm()) return;
+
+    const score = calculateScore();
+    showResult(score, resultMessage);
+
+    const selectedStudent = students.find(s => s.number === studentSelect.value);
+    if (!selectedStudent) {
+      alert("Erro: aluno não encontrado.");
+      return;
+    }
+
+    const activityId = 1; // altere para 2 para outra atividade
+
+    try {
+      await sendToGoogleSheets(selectedStudent.name, score, activityId);
+      submitted = true;
+      submitBtn.disabled = true;
+      alert(`Respostas enviadas com sucesso! Nota: ${score}/10`);
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao enviar respostas: " + err.message);
+    }
+  });
+});
+
+// === FUNÇÕES AUXILIARES ===
+
 function populateStudentDropdown(selectElement) {
-  // Limpa opções existentes
   selectElement.innerHTML = '<option value="">Selecione seu nome</option>';
-  
-  // Adiciona cada aluno como uma opção
   students.forEach((student, index) => {
-    const option = document.createElement("option");
-    option.value = student.number;
-    option.textContent = student.name;
-    option.className = `stripe-${index % 2}`;
-    selectElement.appendChild(option);
+    const opt = document.createElement("option");
+    opt.value = student.number;
+    opt.textContent = student.name;
+    opt.className = `stripe-${index % 2}`;
+    selectElement.appendChild(opt);
   });
 }
 
 function validateForm() {
-  const studentName = document.getElementById("student-name").value;
-  const activityDate = document.getElementById("activity-date").value;
+  const student = document.getElementById("student-name").value;
+  const date = document.getElementById("activity-date").value;
 
-  if (!studentName) {
-    alert("Por favor, selecione seu nome na lista.");
+  if (!student) {
+    alert("Por favor, selecione seu nome.");
     return false;
   }
-  if (!activityDate) {
+  if (!date) {
     alert("Por favor, preencha a data.");
     return false;
   }
 
   for (let i = 1; i <= 10; i++) {
-    const questionName = `q${i}`;
-    const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
-    if (!selectedOption) {
+    const q = `q${i}`;
+    const selected = document.querySelector(`input[name="${q}"]:checked`);
+    if (!selected) {
       if (!confirm(`Você não respondeu a questão ${i}. Deseja enviar mesmo assim?`)) {
         return false;
       }
@@ -842,63 +824,67 @@ function validateForm() {
 function calculateScore() {
   let score = 0;
   for (let i = 1; i <= 10; i++) {
-    const questionName = `q${i}`;
-    const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
-    if (selectedOption && selectedOption.value === correctAnswers[questionName]) {
-      score++;
-    }
+    const q = `q${i}`;
+    const selected = document.querySelector(`input[name="${q}"]:checked`);
+    if (selected && selected.value === correctAnswers[q]) score++;
   }
   return score;
 }
 
 function showResult(score, container) {
-  const percentage = (score / 10) * 100;
-  container.textContent = `Sua pontuação: ${score}/10 (${percentage}%)`;
-  container.className = "result " + (percentage >= 70 ? "success" : "error");
+  const percent = (score / 10) * 100;
+  container.textContent = `Sua pontuação: ${score}/10 (${percent}%)`;
+  container.className = "result " + (percent >= 70 ? "success" : "error");
   container.style.display = "block";
   container.scrollIntoView({ behavior: "smooth" });
 }
 
 function clearForm(container) {
-  document.querySelectorAll('input[type="radio"]').forEach(radio => {
-    radio.checked = false;
-  });
-  if (container) {
-    container.style.display = "none";
-  }
+  document.querySelectorAll('input[type="radio"]').forEach(r => (r.checked = false));
+  if (container) container.style.display = "none";
 }
 
+// === ENVIO PARA GOOGLE SHEETS ===
 async function sendToGoogleSheets(studentName, score, activityId) {
-  const scriptUrl = "https://script.google.com/macros/s/AKfycbzJFquPTMDVnG2phniNTP21jjwZZnyA2cHfsKxhf08F-W8dE9GrxK-bZ4v5S_qTP6cE/exec";
-  const data = { 
-    studentName: studentName, 
-    score: score, 
-    activity: activityId 
+  // 🔗 USE AQUI A URL DO SEU WEB APP GOOGLE APPS SCRIPT (deploy público)
+  const scriptUrl = "https://script.google.com/macros/s/AKfycbwq-gWQelPZSQwVXA6FlQEOjSxGPzb2vuxYG95z-mavoqS3W75BVxlXg0uOotDpS13w/exec";
+
+  const payload = {
+    studentName: studentName,
+    score: score,
+    activity: activityId
   };
 
+  // Requisição com tratamento de erro CORS compatível
   const response = await fetch(scriptUrl, {
     method: "POST",
-    mode: "cors",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
+    body: JSON.stringify(payload)
   });
 
+  // Verifica resposta
   if (!response.ok) {
-    throw new Error("Falha ao enviar dados (HTTP " + response.status + ").");
+    throw new Error(`Falha na comunicação (HTTP ${response.status})`);
   }
 
-  const result = await response.json().catch(() => null);
-  if (!result || !result.success) {
-    throw new Error(result?.message || "Erro ao salvar no Google Sheets.");
+  let result;
+  try {
+    result = await response.json();
+  } catch {
+    throw new Error("Resposta inválida do servidor.");
   }
+
+  if (!result.success) {
+    throw new Error(result.message || "Erro ao registrar nota no Google Sheets.");
+  }
+
+  return result;
 }
-
-// Inicializa a página quando o DOM estiver carregado
-document.addEventListener("DOMContentLoaded", initializePage);
 </script>
 
 </body>
 </html>
+
 
 
 
