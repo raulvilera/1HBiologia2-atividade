@@ -672,6 +672,10 @@
     </div>
 
 <script>
+// === URL DE IMPLANTAÇÃO DO GOOGLE APPS SCRIPT ===
+// ❗ IMPORTANTE: Substitua pela URL correta da SUA nova implantação do Apps Script.
+const SCRIPT_URL = "https://SUBSTITUA_AQUI_PELA_SUA_NOVA_URL_DO_APPS_SCRIPT/exec"; 
+
 // === LISTA DE ALUNOS ===
 const students = [
   { number: "1", name: "ALEXANDRE BATISTA DOS SANTOS" },
@@ -722,10 +726,6 @@ const correctAnswers = {
   q6: "d", q7: "c", q8: "c", q9: "c", q10: "b"
 };
 
-// === CONFIGURAÇÕES DA PLANILHA ===
-const SHEET_ID = "1YGcxB1w_ZYu2vsaqYuh3NEANRCeVdn8PKJn_Ts2b74c";
-const SHEET_NAME = "1ªsérie H";
-
 let submitted = false;
 
 // === INICIALIZAÇÃO ===
@@ -746,15 +746,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Atualiza número ao escolher nome
   studentSelect.addEventListener("change", e => {
-    const student = students.find(s => s.number === e.target.value);
+    const selectedName = e.target.value;
+    // Busca o aluno pelo NOME (que é o valor do select)
+    const student = students.find(s => s.name === selectedName); 
     const numberField = document.getElementById("student-number");
+    // Exibe o número do aluno
     if (numberField) numberField.value = student ? student.number : "";
   });
 
   // Botão limpar
   clearBtn?.addEventListener("click", () => {
     if (submitted) {
-      alert("Não é possível limpar após envio.");
+      alert("Não é possível limpar as respostas após o envio.");
       return;
     }
     clearForm(resultMessage);
@@ -770,24 +773,28 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!validateForm()) return;
 
     const score = calculateScore();
-    showResult(score, resultMessage);
+    const studentName = studentSelect.value; // O nome completo do aluno
 
-    const selectedStudent = students.find(s => s.number === studentSelect.value);
-    if (!selectedStudent) {
-      alert("Erro: aluno não encontrado.");
-      return;
-    }
-
-    const activityId = 1; // altere para 2 para outra atividade
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Enviando...";
 
     try {
-      await sendToGoogleSheets(selectedStudent, score, activityId);
+      // Envia o nome e a nota para o Apps Script
+      const result = await sendToGoogleSheets(studentName, score);
+      
       submitted = true;
-      submitBtn.disabled = true;
+      submitBtn.disabled = true; // Desabilita após o sucesso
+      
+      showResult(score, resultMessage, `Sucesso! ${result.message}`);
       alert(`Respostas enviadas com sucesso! Nota: ${score}/10`);
+      
     } catch (err) {
-      console.error(err);
-      alert("Erro ao enviar respostas: " + err.message);
+      console.error("Erro detalhado:", err);
+      // Exibe a mensagem de erro específica retornada pelo backend
+      alert(`Erro ao enviar respostas: ${err.message}`);
+      
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Enviar Respostas";
     }
   });
 });
@@ -798,7 +805,8 @@ function populateStudentDropdown(selectElement) {
   selectElement.innerHTML = '<option value="">Selecione seu nome</option>';
   students.forEach((student, index) => {
     const opt = document.createElement("option");
-    opt.value = student.number;
+    // O valor da option agora é o NOME COMPLETO, que é o que o Apps Script usa para buscar
+    opt.value = student.name; 
     opt.textContent = student.name;
     opt.className = `stripe-${index % 2}`;
     selectElement.appendChild(opt);
@@ -840,25 +848,23 @@ function calculateScore() {
   return score;
 }
 
-function showResult(score, container) {
+function showResult(score, container, successMessage) {
   const percent = (score / 10) * 100;
-  container.textContent = `Sua pontuação: ${score}/10 (${percent}%)`;
+  container.textContent = `${successMessage} Sua pontuação: ${score}/10 (${percent}%)`;
   container.className = "result " + (percent >= 70 ? "success" : "error");
   container.style.display = "block";
   container.scrollIntoView({ behavior: "smooth" });
 }
 
 function clearForm(container) {
-  document.querySelectorAll('input[type="radio"]').forEach(r => (r.checked = false));
+  document.getElementById("quiz-form").reset();
+  document.getElementById("student-number").value = "";
   if (container) container.style.display = "none";
 }
 
-// === ENVIO PARA GOOGLE SHEETS ===
-async function sendToGoogleSheets(student, score, activityId) {
-  // 🔗 USE AQUI A URL DO SEU WEB APP GOOGLE APPS SCRIPT (deploy público)
-  const scriptUrl = "https://script.google.com/a/macros/prof.educacao.sp.gov.br/s/AKfycbxI66YaMADzkVmhwTUo8yt-KXAAMzrvxzNhy3kh3ovlciUffb0MYnfh1mwOXbleDtg/exec";
-
-  // Coletar todas as respostas
+// === ENVIO PARA GOOGLE SHEETS (CORRIGIDO) ===
+async function sendToGoogleSheets(studentName, score) {
+  // Coletar todas as respostas para enviar ao Apps Script (opcional, mas bom para registro)
   const respostas = {};
   for (let i = 1; i <= 10; i++) {
     const q = `q${i}`;
@@ -867,36 +873,38 @@ async function sendToGoogleSheets(student, score, activityId) {
   }
 
   const payload = {
-    studentName: student.name,
-    studentNumber: student.number,
-    studentGrade: document.getElementById("student-grade").value,
+    studentName: studentName,
+    nota: score, // O Apps Script espera o campo 'nota'
+    activity: 1, // Mantendo o campo activity, embora o Apps Script corrigido não o use mais
     activityDate: document.getElementById("activity-date").value,
     acertos: score,
-    nota: score,
     ...respostas
   };
 
-  // Requisição com tratamento de erro CORS compatível
-  const response = await fetch(scriptUrl, {
+  // Requisição com tratamento de erro
+  const response = await fetch(SCRIPT_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
   });
 
-  // Verifica resposta
+  // Verifica se a comunicação HTTP foi bem-sucedida
   if (!response.ok) {
-    throw new Error(`Falha na comunicação (HTTP ${response.status})`);
+    throw new Error(`Falha na comunicação com o servidor (HTTP ${response.status})`);
   }
 
   let result;
   try {
     result = await response.json();
   } catch {
-    throw new Error("Resposta inválida do servidor.");
+    // Se a resposta não for um JSON válido, é um erro de configuração do Apps Script
+    throw new Error("Resposta inválida do servidor. Verifique se a URL do Apps Script está correta e se a implantação foi feita.");
   }
 
+  // Verifica se o Apps Script retornou sucesso
   if (!result.success) {
-    throw new Error(result.message || "Erro ao registrar nota no Google Sheets.");
+    // Lança um erro com a mensagem detalhada do Apps Script
+    throw new Error(result.message || "Erro desconhecido ao registrar a nota.");
   }
 
   return result;
@@ -905,3 +913,4 @@ async function sendToGoogleSheets(student, score, activityId) {
 
 </body>
 </html>
+
