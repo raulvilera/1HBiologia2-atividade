@@ -675,6 +675,7 @@
 // ===============================
 // CONFIGURAÇÃO
 // ===============================
+// ATENÇÃO: Substitua esta URL pela URL de implantação mais recente do seu Apps Script
 const SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbziXHTfCi_0_VZqT1X6zqMlIOQ-N8U6zjSoURzbezWvvQQTLWRXKgIoL7EqW3aG3SRN/exec";
 
@@ -696,7 +697,7 @@ const students = [
   { number: "38", name: "MATHEUS CAVALCANTE LISBOA" },
   { number: "40", name: "MURILLO SOUZA RODRIGUES DOS SANTOS" },
   { number: "45", name: "PEDRO HENRIQUE MAURICIO DA SILVA CHAGAS" },
-  { number: "48", name: "RHUAN LIMA OLIVEIRA" },
+  { number: "48", "name": "RHUAN LIMA OLIVEIRA" },
   { number: "49", name: "THAINA FIDELIS XAVIER DA SILVA" },
   { number: "54", name: "DENIS CASTRO DURVALDO" },
   { number: "56", name: "ISAAC LEMOS SANTOS" },
@@ -737,7 +738,7 @@ let submitted = false;
 // ===============================
 // INICIALIZAÇÃO
 // ===============================
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", ( ) => {
   const studentSelect = document.getElementById("student-name");
   const numberField = document.getElementById("student-number");
   const dateInput = document.getElementById("activity-date");
@@ -844,7 +845,7 @@ function clearForm(resultBox) {
 }
 
 // ===============================
-// ENVIO AO GOOGLE SHEETS
+// ENVIO AO GOOGLE SHEETS (CORRIGIDO)
 // ===============================
 async function sendToGoogleSheets(studentName, score) {
   const payload = {
@@ -852,14 +853,16 @@ async function sendToGoogleSheets(studentName, score) {
     nota: score
   };
 
+  // CORREÇÃO DE CORS NO FRONTEND: Removemos o cabeçalho "Content-Type"
+  // para forçar uma "Simple Request" que o Apps Script consegue processar.
   const response = await fetch(SCRIPT_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    // headers: { "Content-Type": "application/json" }, // LINHA REMOVIDA/COMENTADA
     body: JSON.stringify(payload)
   });
 
   if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
+    throw new Error(`HTTP ${response.status} ou erro de rede.`);
   }
 
   const result = await response.json();
@@ -875,6 +878,7 @@ async function sendToGoogleSheets(studentName, score) {
 
 </body>
 </html>
+
 
 
 
