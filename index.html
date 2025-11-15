@@ -832,7 +832,7 @@ function clearForm(resultBox) {
 }
 
 // ===============================
-// ENVIO AO GOOGLE SHEETS
+// ENVIO AO GOOGLE SHEETS (CORRIGIDO)
 // ===============================
 async function sendToGoogleSheets(studentName, score) {
   const payload = {
@@ -842,7 +842,6 @@ async function sendToGoogleSheets(studentName, score) {
 
   const response = await fetch(SCRIPT_URL, {
     method: "POST",
-    contentType: "application/json",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
   });
@@ -864,6 +863,7 @@ async function sendToGoogleSheets(studentName, score) {
 
 </body>
 </html>
+
 
 
 
