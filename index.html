@@ -780,7 +780,6 @@ document.addEventListener("DOMContentLoaded", ( ) => {
     submitBtn.textContent = "Enviando...";
 
     try {
-      // A função sendToGoogleSheets agora retorna uma Promise
       const serverResponse = await sendToGoogleSheets(studentName, score);
       submitted = true;
 
@@ -846,47 +845,42 @@ function clearForm(resultBox) {
 }
 
 // ===============================
-// ENVIO AO GOOGLE SHEETS (SOLUÇÃO FINAL XHR)
+// ENVIO AO GOOGLE SHEETS (SOLUÇÃO DEFINITIVA VIA FORM DATA)
 // ===============================
 function sendToGoogleSheets(studentName, score) {
   return new Promise((resolve, reject) => {
-    const payload = {
-      studentName,
-      nota: score
-    };
+    // 1. Cria um objeto FormData com os dados
+    const formData = new FormData();
+    formData.append('studentName', studentName);
+    formData.append('nota', score);
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", SCRIPT_URL);
-    
-    // **CORREÇÃO DE CORS NO FRONTEND:**
-    // Não definimos o Content-Type para evitar o preflight.
-    // O Apps Script consegue ler o JSON mesmo assim.
-    
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        try {
-          const result = JSON.parse(xhr.responseText);
-          if (result.success) {
-            resolve(result);
-          } else {
-            reject(new Error(result.message));
-          }
-        } catch (e) {
-          // Captura erros de parsing se a resposta não for JSON válida
-          reject(new Error("Erro ao processar resposta do servidor: " + xhr.responseText));
-        }
-      } else {
-        // Captura erros HTTP
-        reject(new Error(`Erro HTTP: ${xhr.status}`));
+    // 2. Usa fetch, mas sem Content-Type, e com o FormData
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      // Não defina o Content-Type. O FormData faz isso automaticamente
+      // e usa o tipo 'multipart/form-data' que é uma requisição simples,
+      // contornando o CORS.
+      body: formData
+    })
+    .then(response => {
+      if (!response.ok) {
+        // Se a resposta não for OK (200), lança um erro
+        throw new Error(`Erro HTTP: ${response.status}`);
       }
-    };
-
-    xhr.onerror = function() {
-      // Captura erros de rede, incluindo o CORS que pode se manifestar aqui
-      reject(new Error("Falha na requisição de rede. Verifique a URL e a implantação do Apps Script."));
-    };
-
-    xhr.send(JSON.stringify(payload));
+      // O Apps Script retorna o JSON
+      return response.json();
+    })
+    .then(result => {
+      if (result.success) {
+        resolve(result);
+      } else {
+        reject(new Error(result.message));
+      }
+    })
+    .catch(err => {
+      // Captura erros de rede ou de processamento
+      reject(new Error("Falha na requisição de rede ou erro do servidor: " + err.message));
+    });
   });
 }
 </script>
@@ -895,6 +889,7 @@ function sendToGoogleSheets(studentName, score) {
 
 </body>
 </html>
+
 
 
 
