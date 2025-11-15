@@ -675,7 +675,8 @@
 // ===============================
 // CONFIGURAÇÃO
 // ===============================
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxUfNKMTmWfgOzIhhP81pMJDQF_HEwpvvGOxLkedrCCZWGFcA1QA-xrifdMhFB715FV/exec";
+const SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxOTTmuF45iJidEScpOdaWSgoyslk4-t5ymQ-MdxtXA8YwMKbgq_F3N5VTPeP1TmeJ_/exec";
 
 // ===============================
 // LISTA DE ALUNOS
@@ -751,18 +752,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   studentSelect.addEventListener("change", e => {
-    const name = e.target.value;
-    const student = students.find(s => s.name === name);
-    numberField.value = student ? student.number : "";
+    const selectedStudent = students.find(s => s.name === e.target.value);
+    numberField.value = selectedStudent ? selectedStudent.number : "";
   });
 
   clearBtn.addEventListener("click", () => {
-    if (submitted) return alert("Você já enviou as respostas.");
+    if (submitted) {
+      alert("Você já enviou as respostas.");
+      return;
+    }
     clearForm(resultMessage);
   });
 
   submitBtn.addEventListener("click", async () => {
-    if (submitted) return alert("Você já enviou suas respostas.");
+    if (submitted) {
+      alert("Você já enviou suas respostas.");
+      return;
+    }
 
     if (!validateForm()) return;
 
@@ -802,20 +808,26 @@ function populateStudentDropdown(select) {
 
 function validateForm() {
   if (!document.getElementById("student-name").value) {
-    alert("Selecione seu nome."); return false;
+    alert("Selecione seu nome.");
+    return false;
   }
   if (!document.getElementById("activity-date").value) {
-    alert("Preencha a data."); return false;
+    alert("Preencha a data.");
+    return false;
   }
   return true;
 }
 
 function calculateScore() {
   let score = 0;
+
   for (let i = 1; i <= 10; i++) {
     const selected = document.querySelector(`input[name="q${i}"]:checked`);
-    if (selected && selected.value === correctAnswers[`q${i}`]) score++;
+    if (selected && selected.value === correctAnswers[`q${i}`]) {
+      score++;
+    }
   }
+
   return score;
 }
 
@@ -863,6 +875,7 @@ async function sendToGoogleSheets(studentName, score) {
 
 </body>
 </html>
+
 
 
 
