@@ -679,7 +679,7 @@ const SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbx4keReZRJqgHznvRu9Lbfq5s4sq8WkGFlSWIuYKicqDNOSatyNIpJ1gkQOvA50na-J/exec";
 
 // ===============================
-// LISTA DE ALUNOS
+// LISTA COMPLETA DE ALUNOS
 // ===============================
 const students = [
   { number: "1", name: "ALEXANDRE BATISTA DOS SANTOS" },
@@ -735,7 +735,7 @@ const correctAnswers = {
 let submitted = false;
 
 // ===============================
-// INICIALIZAÇÃO DA PÁGINA
+// INICIALIZAÇÃO
 // ===============================
 document.addEventListener("DOMContentLoaded", () => {
   const studentSelect = document.getElementById("student-name");
@@ -844,7 +844,7 @@ function clearForm(resultBox) {
 }
 
 // ===============================
-// ENVIO AO GOOGLE SHEETS (CORRIGIDO)
+// ENVIO AO GOOGLE SHEETS
 // ===============================
 async function sendToGoogleSheets(studentName, score) {
   const payload = {
@@ -875,6 +875,7 @@ async function sendToGoogleSheets(studentName, score) {
 
 </body>
 </html>
+
 
 
 
