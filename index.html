@@ -675,12 +675,12 @@
 // ===============================
 // CONFIGURAÇÃO
 // ===============================
-// ATENÇÃO: Substitua esta URL pela URL de implantação mais recente do seu Apps Script
+// Use a mesma URL do Apps Script das duas atividades
 const SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxdyi2fPYzzXyQaQnsCF8acLtvBnPnN2hTxkOMmi-5v58PTJnm1yZgqZV-jo58MiqaP/exec";
 
 // ===============================
-// LISTA COMPLETA DE ALUNOS
+// LISTA COMPLETA DE ALUNOS (MESMA DA BIOL 1)
 // ===============================
 const students = [
   { number: "1",  name: "ALEXANDRE BATISTA DOS SANTOS" },
@@ -697,7 +697,7 @@ const students = [
   { number: "38", name: "MATHEUS CAVALCANTE LISBOA" },
   { number: "40", name: "MURILLO SOUZA RODRIGUES DOS SANTOS" },
   { number: "45", name: "PEDRO HENRIQUE MAURICIO DA SILVA CHAGAS" },
-  { number: "48", name: "RHUAN LIMA OLIVEIRA" },  // ← corrigido
+  { number: "48", name: "RHUAN LIMA OLIVEIRA" },
   { number: "49", name: "THAINA FIDELIS XAVIER DA SILVA" },
   { number: "54", name: "DENIS CASTRO DURVALDO" },
   { number: "56", name: "ISAAC LEMOS SANTOS" },
@@ -853,35 +853,31 @@ function sendToGoogleSheets(studentName, score) {
     const formData = new FormData();
     formData.append('studentName', studentName);
     formData.append('nota', score);
+    formData.append('atividade', 'Biologia 2'); // ← DIFERENCIAÇÃO DA ATIVIDADE
 
     fetch(SCRIPT_URL, {
       method: 'POST',
       body: formData
     })
     .then(response => {
-      if (!response.ok) {
-        throw new Error(`Erro HTTP: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
       return response.json();
     })
     .then(result => {
-      if (result.success) {
-        resolve(result);
-      } else {
-        reject(new Error(result.message));
-      }
+      if (result.success) resolve(result);
+      else reject(new Error(result.message));
     })
-    .catch(err => {
-      reject(new Error("Falha na requisição: " + err.message));
-    });
+    .catch(err => reject(new Error("Falha na requisição: " + err.message)));
   });
 }
 </script>
 
 
 
+
 </body>
 </html>
+
 
 
 
