@@ -683,8 +683,8 @@ const SCRIPT_URL =
 // LISTA COMPLETA DE ALUNOS
 // ===============================
 const students = [
-  { number: "1", name: "ALEXANDRE BATISTA DOS SANTOS" },
-  { number: "5", name: "ANA LÍVIA BRAGA DOS SANTOS" },
+  { number: "1",  name: "ALEXANDRE BATISTA DOS SANTOS" },
+  { number: "5",  name: "ANA LÍVIA BRAGA DOS SANTOS" },
   { number: "11", name: "DANIELLE OLIVEIRA DA SILVA NUNES" },
   { number: "14", name: "ELOYSA ANDRADE OLIVEIRA SILVA" },
   { number: "18", name: "FELIPE MARCONDES SILVA" },
@@ -697,7 +697,7 @@ const students = [
   { number: "38", name: "MATHEUS CAVALCANTE LISBOA" },
   { number: "40", name: "MURILLO SOUZA RODRIGUES DOS SANTOS" },
   { number: "45", name: "PEDRO HENRIQUE MAURICIO DA SILVA CHAGAS" },
-  { number: "48", "name": "RHUAN LIMA OLIVEIRA" },
+  { number: "48", name: "RHUAN LIMA OLIVEIRA" },  // ← corrigido
   { number: "49", name: "THAINA FIDELIS XAVIER DA SILVA" },
   { number: "54", name: "DENIS CASTRO DURVALDO" },
   { number: "56", name: "ISAAC LEMOS SANTOS" },
@@ -738,7 +738,8 @@ let submitted = false;
 // ===============================
 // INICIALIZAÇÃO
 // ===============================
-document.addEventListener("DOMContentLoaded", ( ) => {
+document.addEventListener("DOMContentLoaded", () => {
+
   const studentSelect = document.getElementById("student-name");
   const numberField = document.getElementById("student-number");
   const dateInput = document.getElementById("activity-date");
@@ -828,7 +829,6 @@ function calculateScore() {
       score++;
     }
   }
-
   return score;
 }
 
@@ -845,29 +845,23 @@ function clearForm(resultBox) {
 }
 
 // ===============================
-// ENVIO AO GOOGLE SHEETS (SOLUÇÃO DEFINITIVA VIA FORM DATA)
+// ENVIO AO GOOGLE SHEETS (DEFINITIVO)
 // ===============================
 function sendToGoogleSheets(studentName, score) {
   return new Promise((resolve, reject) => {
-    // 1. Cria um objeto FormData com os dados
+
     const formData = new FormData();
     formData.append('studentName', studentName);
     formData.append('nota', score);
 
-    // 2. Usa fetch, mas sem Content-Type, e com o FormData
     fetch(SCRIPT_URL, {
       method: 'POST',
-      // Não defina o Content-Type. O FormData faz isso automaticamente
-      // e usa o tipo 'multipart/form-data' que é uma requisição simples,
-      // contornando o CORS.
       body: formData
     })
     .then(response => {
       if (!response.ok) {
-        // Se a resposta não for OK (200), lança um erro
         throw new Error(`Erro HTTP: ${response.status}`);
       }
-      // O Apps Script retorna o JSON
       return response.json();
     })
     .then(result => {
@@ -878,8 +872,7 @@ function sendToGoogleSheets(studentName, score) {
       }
     })
     .catch(err => {
-      // Captura erros de rede ou de processamento
-      reject(new Error("Falha na requisição de rede ou erro do servidor: " + err.message));
+      reject(new Error("Falha na requisição: " + err.message));
     });
   });
 }
@@ -889,6 +882,7 @@ function sendToGoogleSheets(studentName, score) {
 
 </body>
 </html>
+
 
 
 
